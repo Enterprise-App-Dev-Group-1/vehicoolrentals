@@ -31,8 +31,4 @@ public class CarServiceImpl implements CarService {
             throw new IllegalArgumentException("Car not found.");
         }
     }
-
-    @Override
-    public void cancelBooking(int carId, int customerId, LocalDate startDate, LocalDate endDate) {
-    }
 }
