@@ -670,3 +670,4 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,java,test,windows,macos,linux,notepadpp,eclipse,visualstudio,visualstudiocode
 /src/main/resources/config.properties
+/src/test/java/com/vehicoolrentals/app/CarApiClientTest.java

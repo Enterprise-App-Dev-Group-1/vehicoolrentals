@@ -1,30 +1,17 @@
 package com.vehicoolrentals.app;
 
-import java.io.FileInputStream;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
-import java.util.Properties;
 
+@Component
 public class CarApiClient {
-    public static void main(String[] args) throws Exception {
-        // Load the configuration file
-        Properties config = new Properties();
-        try (FileInputStream fis = new FileInputStream("config.properties")) {
-            config.load(fis);
-        } catch (IOException e) {
-            // Handle configuration file loading error
-            e.printStackTrace();
-        }
-
-        // Retrieve the API key from the configuration
-        String apiKey = config.getProperty("api.key");
-
+    public String getCarInformation(String apiKey) throws IOException, InterruptedException {
         // Create an instance of HttpClient
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
@@ -40,7 +27,7 @@ public class CarApiClient {
         // Send the request and retrieve the response
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // Print the response body
-        System.out.println(response.body());
+        // Return the response body
+        return response.body();
     }
 }
