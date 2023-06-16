@@ -232,86 +232,6 @@ Temporary Items
 ### NotepadPP ###
 # Notepad++ backups #
 
-### Test ###
-### Ignore all files that could be used to test your code and
-### you wouldn't want to push
-
-# Reference https://en.wikipedia.org/wiki/Metasyntactic_variable
-
-# Most common
-*foo
-*bar
-*fubar
-*foobar
-*baz
-
-# Less common
-*qux
-*quux
-*bongo
-*bazola
-*ztesch
-
-# UK, Australia
-*wibble
-*wobble
-*wubble
-*flob
-*blep
-*blah
-*boop
-*beep
-
-# Japanese
-*hoge
-*piyo
-*fuga
-*hogera
-*hogehoge
-
-# Portugal, Spain
-*fulano
-*sicrano
-*beltrano
-*mengano
-*perengano
-*zutano
-
-# France, Italy, the Netherlands
-*toto
-*titi
-*tata
-*tutu
-*pipppo
-*pluto
-*paperino
-*aap
-*noot
-*mies
-
-# Other names that would make sense
-*tests
-*testsdir
-*testsfile
-*testsfiles
-*test
-*testdir
-*testfile
-*testfiles
-*testing
-*testingdir
-*testingfile
-*testingfiles
-*temp
-*tempdir
-*tempfile
-*tempfiles
-*tmp
-*tmpdir
-*tmpfile
-*tmpfiles
-*lol
-
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -749,3 +669,4 @@ FodyWeavers.xsd
 /resources/config.json
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,java,test,windows,macos,linux,notepadpp,eclipse,visualstudio,visualstudiocode
+/src/main/resources/config.properties

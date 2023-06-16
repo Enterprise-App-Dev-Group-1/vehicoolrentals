@@ -15,8 +15,7 @@ public class CarApiClient {
     public static void main(String[] args) throws Exception {
         // Load the configuration file
         Properties config = new Properties();
-        Path configPath = Paths.get("resources/config.properties");
-        try (FileInputStream fis = new FileInputStream(configPath.toFile())) {
+        try (FileInputStream fis = new FileInputStream("config.properties")) {
             config.load(fis);
         } catch (IOException e) {
             // Handle configuration file loading error
