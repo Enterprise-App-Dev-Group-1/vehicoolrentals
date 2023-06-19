@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CarController {
     @GetMapping("/car")
     public String carPage(Model model) {
+        model.addAttribute("content", "car");
         model.addAttribute("message", "Your future car awaits you!");
-        return "car";
+        return "layout";
     }
 }

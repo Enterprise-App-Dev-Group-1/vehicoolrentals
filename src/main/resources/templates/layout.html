@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Application</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<header>
+    <h1>TEST HEADER</h1>
+</header>
+
+<main>
+    <!-- Main content goes here -->
+    <section th:insert="${content}">
+        <!-- Default content goes here -->
+    </section>
+</main>
+
+<footer>
+    <h1>TEST FOOTER</h1>
+</footer>
+</body>
+</html>
