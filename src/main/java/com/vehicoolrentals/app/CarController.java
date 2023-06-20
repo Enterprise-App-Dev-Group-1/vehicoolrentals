@@ -57,8 +57,9 @@ public class CarController {
             e.printStackTrace();
         }
 
-        return "car";
+        return "layout";
     }
+  
     public static class CarData {
         private int year;
         private String make;
@@ -97,6 +98,7 @@ public class CarController {
             this.trims = trims;
         }
     }
+  
     public static class TrimData {
         private double msrp;
 
@@ -108,6 +110,7 @@ public class CarController {
             this.msrp = msrp;
         }
     }
+  
     public static class Car {
         private int year;
         private String make;
