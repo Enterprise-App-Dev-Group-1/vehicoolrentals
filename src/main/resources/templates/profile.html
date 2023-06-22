@@ -3,11 +3,50 @@
     <head>
         <meta charset="UTF-8">
         <title>Profile</title>
+        <style>
+            .fakeimg {
+             height: 200px;
+             background: #aaa;
+             }
+        </style>
     </head>
     <body>
         <div class="container text-center pt-5">
             <h1>Profile Page</h1>
             <p th:text="${message}"></p>
+
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h2>Profile Picture</h2>
+                        <div class="fakeimg">Fake Image</div>
+                        <hr class="d-sm-none">
+                    </div>
+
+                    <div class="col-sm-8">
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="name">Name</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="email">Email</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="phone-number">Phone Number</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-default">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </body>
 </html>
