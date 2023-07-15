@@ -4,10 +4,57 @@
     <meta charset="UTF-8">
     <title>My Rentals</title>
 </head>
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th{
+        background-color: #6e48be;
+        color: white;
+    }
+</style>
+
+
 <body>
 <div class="container text-center pt-5">
     <h1>Rentals Page</h1>
     <p th:text="${message}"></p>
 </div>
+
+<table>
+    <tr>
+        <th>Image of Car</th>
+        <th>Car Model</th>
+        <th>Year</th>
+        <th>Price</th>
+    </tr>
+    <tr>
+        <td>Picture</td>
+        <td>Jeep Wrangler</td>
+        <td>2020</td>
+        <td>$$</td>
+    </tr>
+    <tr>
+        <td>Picture</td>
+        <td>Honda Civic</td>
+        <td>2023</td>
+        <td>$$</td>
+    </tr>
+
+</table>
+
 </body>
 </html>

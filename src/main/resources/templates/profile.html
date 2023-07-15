@@ -26,21 +26,23 @@
 
                     <div class="col-sm-8">
 
-                        <div class="input-group mb-3">
+                        <div class="inputs-group mb-3">
                             <span class="input-group-text" id="name">Name</span>
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                    aria-describedby="inputGroup-sizing-default">
                         </div>
-                        <div class="input-group mb-3">
+                        <div class="inputs-group mb-3">
                             <span class="input-group-text" id="email">Email</span>
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                    aria-describedby="inputGroup-sizing-default">
                         </div>
-                        <div class="input-group mb-3">
+                        <div class="inputs-group mb-3">
                             <span class="input-group-text" id="phone-number">Phone Number</span>
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                    aria-describedby="inputGroup-sizing-default">
                         </div>
+
+                        <button type="button" class="btn btn-primary" id="savebutton">Save</button>
 
                     </div>
 
@@ -48,5 +50,24 @@
 
             </div>
         </div>
+
+    <script>
+        var savebutton = document.getElementById('savebutton');
+        var readonly = true;
+        var inputs = document.querySelectorAll('input[type="text"]');
+        savebutton.addEventListener('click',function(){
+
+            for (var i=0; i<inputs.length; i++) {
+                inputs[i].toggleAttribute('readonly');
+            };
+
+            if (savebutton.innerHTML == "Save") {
+                savebutton.innerHTML = "Edit";
+            } else {
+                savebutton.innerHTML = "Save";
+            }
+
+        });
+    </script>
     </body>
 </html>
