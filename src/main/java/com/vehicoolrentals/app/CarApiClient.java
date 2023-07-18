@@ -9,8 +9,19 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
+/**
+ * The CarApiClient class is responsible for interacting with a car API to retrieve car information.
+ */
 @Component
 public class CarApiClient {
+    /**
+     * Retrieves car information from the car API using the provided API key.
+     *
+     * @param apiKey the API key to access the car API
+     * @return the response body containing the car information
+     * @throws IOException        if an I/O error occurs while sending the request
+     * @throws InterruptedException if the operation is interrupted while sending the request
+     */
     public String getCarInformation(String apiKey) throws IOException, InterruptedException {
         // Create an instance of HttpClient
         HttpClient client = HttpClient.newBuilder()

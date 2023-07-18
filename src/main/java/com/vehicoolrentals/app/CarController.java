@@ -9,16 +9,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * The CarController class is a Spring MVC controller responsible for handling car-related requests.
+ */
 @Controller
 public class CarController {
     private final CarApiClient carApiClient;
     private final Gson gson;
 
+    /**
+     * Constructs a CarController with the provided CarApiClient and Gson instances.
+     *
+     * @param carApiClient the CarApiClient instance to use for making API calls
+     */
     public CarController(CarApiClient carApiClient) {
         this.carApiClient = carApiClient;
         this.gson = new Gson();
     }
 
+    /**
+     * Handles the request to the /car endpoint and returns the car page.
+     *
+     * @param carModel the Model object to populate with car data
+     * @return the name of the view to render
+     */
     @GetMapping("/car")
     public String carPage(Model carModel) {
         // Load the configuration file
@@ -59,7 +73,10 @@ public class CarController {
 
         return "layout";
     }
-  
+
+    /**
+     * Represents the data structure for car information retrieved from the API.
+     */
     public static class CarData {
         private int year;
         private String make;
@@ -98,7 +115,10 @@ public class CarController {
             this.trims = trims;
         }
     }
-  
+
+    /**
+     * Represents the data structure for trim information.
+     */
     public static class TrimData {
         private double msrp;
 
@@ -110,7 +130,10 @@ public class CarController {
             this.msrp = msrp;
         }
     }
-  
+
+    /**
+     * Represents a Car object with specific attributes.
+     */
     public static class Car {
         private int year;
         private String make;

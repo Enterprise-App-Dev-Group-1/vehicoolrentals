@@ -5,7 +5,16 @@ import com.vehicoolrentals.app.domain.Car;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The CarRepositoryImpl class implements the CarRepository interface to provide data access methods for cars.
+ */
 public class CarRepositoryImpl implements CarRepository {
+    /**
+     * Finds a car by its ID.
+     *
+     * @param carId the ID of the car to find
+     * @return the car with the specified ID, or null if not found
+     */
     @Override
     public Car findById(int carId) {
         // Implementation logic to retrieve the car from the persistence layer
@@ -26,8 +35,13 @@ public class CarRepositoryImpl implements CarRepository {
         return null; // If car is not found, return null or throw an exception as per your requirement
     }
 
-    // Dummy method to simulate fetching all cars from the persistence layer
+    /**
+     * Fetches all cars from the persistence layer.
+     *
+     * @return the list of all cars
+     */
     private List<Car> getAllCars() {
+        // Dummy method to simulate fetching all cars from the persistence layer
         // Replace this with actual logic to fetch cars from the persistence layer
         // For demonstration purposes, let's assume we have a list of cars stored in memory
         // Replace this with own logic to fetch cars from your persistence layer

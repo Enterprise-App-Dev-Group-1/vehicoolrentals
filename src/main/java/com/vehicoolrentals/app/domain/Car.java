@@ -2,6 +2,9 @@ package com.vehicoolrentals.app.domain;
 
 import java.util.Date;
 
+/**
+ * The Car class represents a car entity with its properties and implements the ICar interface.
+ */
 public class Car implements ICar {
     private int Id;
     private String Make;
@@ -15,6 +18,14 @@ public class Car implements ICar {
     public Date AvailabilityEnd;
     public float CarPrice;
 
+    /**
+     * Constructs a Car object with the specified ID, make, model, and year.
+     *
+     * @param id    the ID of the car
+     * @param make  the make of the car
+     * @param model the model of the car
+     * @param year  the year of the car
+     */
     public Car(int id, String make, String model, int year) {
         this.Id = id;
         this.Make = make;
@@ -22,6 +33,21 @@ public class Car implements ICar {
         this.Year = year;
     }
 
+    /**
+     * Constructs a Car object with the specified properties.
+     *
+     * @param id                the ID of the car
+     * @param make              the make of the car
+     * @param model             the model of the car
+     * @param year              the year of the car
+     * @param carImage          the image of the car
+     * @param passengers        the number of passengers the car can accommodate
+     * @param carLocation       the location of the car
+     * @param carDimensions     the dimensions of the car
+     * @param availabilityStart the start date of the car's availability
+     * @param availabilityEnd   the end date of the car's availability
+     * @param carPrice          the price of the car
+     */
     public Car(int id, String make, String model, int year, String carImage, int passengers, String carLocation, String carDimensions, Date availabilityStart, Date availabilityEnd, float carPrice) {
         this.Id = id;
         this.Make = make;
