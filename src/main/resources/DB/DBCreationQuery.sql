@@ -52,14 +52,14 @@ INSERT INTO Companies
 Values (1, 'RentalAgency1', 'rentalagency1@gmail.com', '11234567890', 'stockpfp1'),
 	   (2, 'RentalAgency2', 'rentalagency2@gmail.com', '11234567890', 'stockpfp2');
 INSERT INTO Customers (CustomerId, CustomerName, Email, PhoneNumber)
-Values (1, 'John Doe', 'johndoe@gmail.com', '11234567890', 'stockpfp2'),
-	   (2, 'Jane Doe', 'janedoe@gmail.com', '11234567890', 'stockpfp1'),
-	   (2, 'Jace Doe', 'jacedoe@gmail.com', '11234567890', 'stockpfp2');
+Values (1, 'John Doe', 'johndoe@gmail.com', '11234567890', 'stockpfp1'),
+	   (2, 'Jane Doe', 'janedoe@gmail.com', '11234567890', 'stockpfp2'),
+	   (2, 'Jace Doe', 'jacedoe@gmail.com', '11234567890', 'stockpfp3');
 INSERT INTO Cars
 Values (1, 'Rubus', 'Tructa Saxum', 1982, 'stockcar1', 3, 'Cincinnati, OH', '20 x 10 x 5', 09/05/2023, 10/05/2023, 3.00, 1),
        (2, 'Rubus', 'Hippurus Marmor', 1389, 'stockcar2', 4, 'Cincinnati, OH', '25 x 15 x 5', 09/05/2023, 10/05/2023, 179000.00, 1),
 	   (3, 'Caecus', 'Tellus Maximus 9000', 2020, 'stockcar3', 5, 'Cincinnati, OH', '20 x 15 x 6', 10/01/2023, 12/31/2023, 300.00, 2),
-	   (4, 'Caecus', 'Vitrum Glomerorum', 2021, 'stockcar4', 4, 'Cincinnati, OH', '25 x 15 x 5', 02/04/2024, 02/05/2025, 400.00, 2)
+	   (4, 'Caecus', 'Vitrum Glomerorum', 2021, 'stockcar4', 5, 'Cincinnati, OH', '25 x 15 x 5', 02/04/2024, 02/05/2025, 400.00, 2)
 INSERT INTO Rentals
 Values (1, 1, 09/05/2023, 10/05/2023),
 	   (2, 2, 10/01/2023, 10/05/2023),
