@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * The CarRepositoryImpl class implements the CarRepository interface to provide data access methods for cars.
  */
-public class CarRepositoryImpl implements CarRepository {
+public class CarRepositoryImpl extends CarRepository {
     /**
      * Finds a car by its ID.
      *
@@ -18,9 +18,9 @@ public class CarRepositoryImpl implements CarRepository {
     @Override
     public Car findById(int carId) {
         // Implementation logic to retrieve the car from the persistence layer
-        // Replace this with actual implementation
+        // Replace this with the actual implementation
 
-        // For demonstration purposes, let's assume we have a list of cars stored in memory
+        // For demonstration purposes, let's assume we have a list of cars stored in memory,
         // and we retrieve the car based on the given carId
         // You should replace this with your own logic to retrieve the car from your persistence layer
 
@@ -42,9 +42,9 @@ public class CarRepositoryImpl implements CarRepository {
      */
     private List<Car> getAllCars() {
         // Dummy method to simulate fetching all cars from the persistence layer
-        // Replace this with actual logic to fetch cars from the persistence layer
+        // Replace this with the actual logic to fetch cars from the persistence layer
         // For demonstration purposes, let's assume we have a list of cars stored in memory
-        // Replace this with own logic to fetch cars from your persistence layer
+        // Replace this with your own logic to fetch cars from your persistence layer
 
         List<Car> cars = new ArrayList<>();
 

@@ -2,6 +2,7 @@ package com.vehicoolrentals.app.business;
 
 import com.vehicoolrentals.app.domain.Car;
 import com.vehicoolrentals.app.persistence.CarRepository;
+import com.vehicoolrentals.app.service.CarService;
 
 import java.time.LocalDate;
 
@@ -9,8 +10,8 @@ import java.time.LocalDate;
  * The CarServiceImpl class implements the CarService interface and provides the implementation for
  * checking car availability and making reservations.
  */
-public class CarServiceImpl implements CarService {
-    private CarRepository carRepository;
+public class CarServiceImpl extends CarService implements RentalServiceImpl {
+    private final CarRepository carRepository;
 
     /**
      * Constructs a CarServiceImpl object with the specified CarRepository.
@@ -18,6 +19,7 @@ public class CarServiceImpl implements CarService {
      * @param carRepository the CarRepository to use for retrieving car information
      */
     public CarServiceImpl(CarRepository carRepository) {
+        super();
         this.carRepository = carRepository;
     }
 

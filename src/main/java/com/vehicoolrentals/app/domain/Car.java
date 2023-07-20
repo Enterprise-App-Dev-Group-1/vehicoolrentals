@@ -1,5 +1,7 @@
 package com.vehicoolrentals.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.Date;
 
 /**
@@ -63,7 +65,7 @@ public class Car implements ICar {
     }
 
     @Override
-    public float getCarPrice() {
+    public float getCarPrice () {
         return CarPrice;
     }
     @Override

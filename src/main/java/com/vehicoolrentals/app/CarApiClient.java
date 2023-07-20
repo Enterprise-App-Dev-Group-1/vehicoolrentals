@@ -1,5 +1,7 @@
 package com.vehicoolrentals.app;
 
+import com.vehicoolrentals.app.domain.Car;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -14,6 +16,9 @@ import java.time.Duration;
  */
 @Component
 public class CarApiClient {
+
+    @Autowired
+    private com.vehicoolrentals.app.service.CarService carService;
 
     private String apiKey;
 
@@ -115,5 +120,14 @@ public class CarApiClient {
 
         // Return the response body
         response.body();
+    }
+    /**
+     * Retrieves a car from the car API using the provided ID.
+     *
+     * @param id the ID of the car to retrieve
+     * @return the car object if found, or null if not found
+     */
+    public Car getCarById(int id) {
+        return carService.getCarById(id).orElse(null);
     }
 }

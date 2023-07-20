@@ -1,7 +1,6 @@
 package com.vehicoolrentals.app;
 
-import com.vehicoolrentals.app.business.CarService;
-import com.vehicoolrentals.app.business.CarServiceImpl;
+;
 import com.vehicoolrentals.app.domain.Car;
 import com.vehicoolrentals.app.persistence.CarRepository;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +22,7 @@ public class CarServiceTest {
 		CarRepository carRepository = new CarRepositoryMock();
 
 		// Create an instance of the CarService using the mock CarRepository
-		CarService carService = new CarServiceImpl(carRepository);
+		com.vehicoolrentals.app.service.CarService carService = new com.vehicoolrentals.app.service.CarService();
 
 		// Test the methods from the CarService interface
 		Assertions.assertTrue(carService.checkAvailability(1, LocalDate.now(), LocalDate.now().plusDays(3)));
@@ -31,7 +30,7 @@ public class CarServiceTest {
 	}
 
 	// Mock implementation of CarRepository for testing
-	private static class CarRepositoryMock implements CarRepository {
+	private static class CarRepositoryMock extends CarRepository {
 		@Override
 		public Car findById(int carId) {
 			// Implement the mock behavior to return a dummy Car object or null based on the carId
