@@ -1,6 +1,7 @@
 package com.vehicoolrentals.app.persistence;
 
 import com.vehicoolrentals.app.domain.Car;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Optional;
 /**
  * The CarRepository class is responsible for managing car data and provides methods to retrieve cars by ID.
  */
+@Repository
 public abstract class CarRepository {
     private final List<Car> cars;
 
@@ -54,3 +56,4 @@ public abstract class CarRepository {
 
     public abstract Car findById(int carId);
 }
+// Compare this snippet from src\main\java\com\vehicoolrentals\app\persistence\CarRepository.java:

@@ -1,7 +1,7 @@
 package com.vehicoolrentals.app;
 
 import com.vehicoolrentals.app.domain.Car;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vehicoolrentals.app.persistence.CarRepository;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,9 +16,11 @@ import java.time.Duration;
  */
 @Component
 public class CarApiClient {
+    private final CarRepository carRepository;
 
-    @Autowired
-    private com.vehicoolrentals.app.service.CarService carService;
+    public CarApiClient(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
 
     /**
      * Retrieves car information from the car API using the provided segments.
@@ -98,6 +100,16 @@ public class CarApiClient {
      * @return the car object if found, or null if not found
      */
     public Car getCarById(int id) {
-        return carService.getCarById(String.valueOf(id)).orElse(null);
+        return carRepository.findById(id);
+    }
+
+    // Implement the mock behavior to return a dummy JSON response for VIN decoding
+    public String pingApi(String endpoint, String requestBody) {
+        return null;
+    }
+
+    public String getCarData(int carId) {
+        return null;
     }
 }
+// Compare this snippet from src\main\java\com\vehicoolrentals\app\persistence\CarRepository.java:

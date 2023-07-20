@@ -2,8 +2,6 @@ package com.vehicoolrentals.app.business;
 
 import com.vehicoolrentals.app.domain.Car;
 import com.vehicoolrentals.app.persistence.CarRepository;
-import com.vehicoolrentals.app.service.CarService;
-
 import java.time.LocalDate;
 
 /**
@@ -19,7 +17,7 @@ public class CarServiceImpl extends CarService implements RentalServiceImpl {
      * @param carRepository the CarRepository to use for retrieving car information
      */
     public CarServiceImpl(CarRepository carRepository) {
-        super();
+        super(carRepository);
         this.carRepository = carRepository;
     }
 

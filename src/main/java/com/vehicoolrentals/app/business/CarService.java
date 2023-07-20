@@ -1,11 +1,11 @@
-package com.vehicoolrentals.app.service;
+package com.vehicoolrentals.app.business;
 
 import com.vehicoolrentals.app.domain.Car;
+import com.vehicoolrentals.app.persistence.CarRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
 
 /**
@@ -13,13 +13,15 @@ import java.util.Optional;
  */
 @Service
 public class CarService {
-    private List<Car> cars;
+    private final CarRepository carRepository;
 
     /**
-     * Constructs a CarService with an empty list of cars.
+     * Constructs a CarService with the provided CarRepository.
+     *
+     * @param carRepository the CarRepository instance to use for accessing car data
      */
-    public CarService() {
-        cars = new ArrayList<>();
+    public CarService(CarRepository carRepository) {
+        this.carRepository = carRepository;
     }
 
     /**
@@ -28,7 +30,7 @@ public class CarService {
      * @param car the car to add
      */
     public void addCar(Car car) {
-        cars.add(car);
+        carRepository.addCar(car);
     }
 
     /**
@@ -38,21 +40,7 @@ public class CarService {
      * @return an Optional containing the car if found, or an empty Optional if not found
      */
     public Optional<Car> getCarById(String id) {
-        try {
-            return cars.stream()
-                    .filter(car -> {
-                        try {
-                            return car.getId().equals(id);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            return false;
-                        }
-                    })
-                    .findFirst();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Optional.empty();
-        }
+        return carRepository.getCarById(id);
     }
 
     public boolean checkAvailability(int i, LocalDate now, LocalDate localDate) {
