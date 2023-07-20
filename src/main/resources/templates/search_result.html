@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Result</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+  <!-- Bootswatch Theme CSS -->
+  <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/site.css}" />
+</head>
+<body>
+<div class="container text-center pt-5">
+  <h1>Search Result Page</h1>
+  <p th:text="${searchResult}"></p>
+</div>
+</body>
+</html>

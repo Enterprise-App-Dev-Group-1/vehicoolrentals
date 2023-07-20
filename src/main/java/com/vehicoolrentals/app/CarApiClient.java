@@ -25,6 +25,13 @@ public class CarApiClient {
      * @throws IllegalArgumentException if any of the segments is blank (empty or contains only whitespace)
      */
     public String pingApi(String... segments) throws IOException, InterruptedException {
+        // Handling blank segments and providing default values
+        for (int i = 0; i < segments.length; i++) {
+            if (segments[i] == null || segments[i].isBlank()) {
+                segments[i] = "";
+            }
+        }
+
         // Create an instance of HttpClient
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
@@ -33,10 +40,9 @@ public class CarApiClient {
         // Construct the complete URI with additional data segments
         StringBuilder uriBuilder = new StringBuilder("https://vpic.nhtsa.dot.gov/api/");
         for (String segment : segments) {
-            if (segment.isBlank()) {
-                throw new IllegalArgumentException("Segment cannot be blank.");
+            if (!segment.isEmpty()) {
+                uriBuilder.append(segment).append("/");
             }
-            uriBuilder.append(segment).append("/");
         }
 
         // Create an HttpRequest with the necessary headers and the modified URL
@@ -69,10 +75,12 @@ public class CarApiClient {
         // Construct the complete URI with additional data segments
         StringBuilder uriBuilder = new StringBuilder("https://vpic.nhtsa.dot.gov/api/");
         for (String segment : segments) {
-            if (segment.isBlank()) {
+            if (segment != null && segment.isBlank()) {
                 throw new IllegalArgumentException("Segment cannot be blank.");
             }
-            uriBuilder.append(segment).append("/");
+            if (segment != null) {
+                uriBuilder.append(segment).append("/");
+            }
         }
 
         // Create an HttpRequest with the necessary headers and the modified URL
@@ -101,4 +109,3 @@ public class CarApiClient {
         return null;
     }
 }
-// Compare this snippet from src\main\java\com\vehicoolrentals\app\persistence\CarRepository.java:
