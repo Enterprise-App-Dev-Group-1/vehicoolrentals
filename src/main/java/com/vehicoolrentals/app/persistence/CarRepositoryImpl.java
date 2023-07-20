@@ -2,6 +2,7 @@ package com.vehicoolrentals.app.persistence;
 
 import com.vehicoolrentals.app.domain.Car;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,12 @@ public class CarRepositoryImpl extends CarRepository {
         List<Car> cars = getAllCars(); // Replace with your logic to fetch cars from the persistence layer
 
         for (Car car : cars) {
-            if (car.getId() == carId) {
-                return car;
+            try {
+                car.getId(); { // This is to simulate a possible exception that may occur when retrieving the ID
+                    return car;
+                }
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
 

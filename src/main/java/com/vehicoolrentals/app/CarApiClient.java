@@ -21,21 +21,32 @@ public class CarApiClient {
     private com.vehicoolrentals.app.service.CarService carService;
 
     /**
-     * Retrieves car information from the car API.
+     * Retrieves car information from the car API using the provided segments.
      *
+     * @param segments the additional data segments to be appended to the base URI
      * @return the response body containing the car information
      * @throws IOException          if an I/O error occurs while sending the request
      * @throws InterruptedException if the operation is interrupted while sending the request
+     * @throws IllegalArgumentException if any of the segments is blank (empty or contains only whitespace)
      */
-    public String pingApi(String apiKey) throws IOException, InterruptedException {
+    public String pingApi(String... segments) throws IOException, InterruptedException {
         // Create an instance of HttpClient
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
 
-        // Create an HttpRequest with the necessary headers and URL
+        // Construct the complete URI with additional data segments
+        StringBuilder uriBuilder = new StringBuilder("https://vpic.nhtsa.dot.gov/api/");
+        for (String segment : segments) {
+            if (segment.isBlank()) {
+                throw new IllegalArgumentException("Segment cannot be blank.");
+            }
+            uriBuilder.append(segment).append("/");
+        }
+
+        // Create an HttpRequest with the necessary headers and the modified URL
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://vpic.nhtsa.dot.gov/api/"))
+                .uri(URI.create(uriBuilder.toString()))
                 .build();
 
         // Send the request and retrieve the response
@@ -60,9 +71,12 @@ public class CarApiClient {
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
 
-        // Construct the complete URI with additional data
+        // Construct the complete URI with additional data segments
         StringBuilder uriBuilder = new StringBuilder("https://vpic.nhtsa.dot.gov/api/");
         for (String segment : segments) {
+            if (segment.isBlank()) {
+                throw new IllegalArgumentException("Segment cannot be blank.");
+            }
             uriBuilder.append(segment).append("/");
         }
 
@@ -74,8 +88,7 @@ public class CarApiClient {
         // Send the request and retrieve the response
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // Return the response body
-        response.body();
+        // Process the response here if needed
     }
 
     /**
@@ -85,6 +98,6 @@ public class CarApiClient {
      * @return the car object if found, or null if not found
      */
     public Car getCarById(int id) {
-        return carService.getCarById(id).orElse(null);
+        return carService.getCarById(String.valueOf(id)).orElse(null);
     }
 }

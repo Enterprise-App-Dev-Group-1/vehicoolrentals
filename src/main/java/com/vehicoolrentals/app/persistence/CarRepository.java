@@ -34,10 +34,22 @@ public abstract class CarRepository {
      * @param id the ID of the car to retrieve
      * @return an Optional containing the car if found, or an empty Optional if not found
      */
-    public Optional<Car> getCarById(int id) {
-        return cars.stream()
-                .filter(car -> car.getId() == id)
-                .findFirst();
+    public Optional<Car> getCarById(String id) {
+        try {
+            return cars.stream()
+                    .filter(car -> {
+                        try {
+                            return car.getId().equals(id);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    })
+                    .findFirst();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     public abstract Car findById(int carId);
