@@ -1,43 +1,29 @@
 package com.vehicoolrentals.app.domain;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.vehicoolrentals.app.CarApiClient;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.Date;
 
-/**
- * The Car class represents a car entity with its properties and implements the ICar interface.
- */
 public class Car implements ICar {
 
-    private com.vehicoolrentals.app.CarApiClient carApiClient;
+    private CarApiClient carApiClient;
 
-    // MySql Database id
     private int id;
-
-    // Vim for CarApi
     private String vim;
-
     private String make;
     private String model;
     private int year;
-    public String carImage;
-    public int passengers;
-    public String carLocation;
-    public String carDimensions;
-    public Date availabilityStart;
-    public Date AvailabilityEnd;
-    public float carPrice;
+    private String carImage;
+    private int passengers;
+    private String carLocation;
+    private String carDimensions;
+    private Date availabilityStart;
+    private Date availabilityEnd;
+    private float carPrice;
 
-    /**
-     * Constructs a Car object with the specified ID, make, model, and year.
-     *
-     * @param id    the ID of the car
-     * @param make  the make of the car
-     * @param model the model of the car
-     * @param year  the year of the car
-     */
     public Car(int id, String vim, String make, String model, int year) {
         this.id = id;
         this.vim = vim;
@@ -46,21 +32,6 @@ public class Car implements ICar {
         this.year = year;
     }
 
-    /**
-     * Constructs a Car object with the specified properties.
-     *
-     * @param id                the ID of the car
-     * @param make              the make of the car
-     * @param model             the model of the car
-     * @param year              the year of the car
-     * @param carImage          the image of the car
-     * @param passengers        the number of passengers the car can accommodate
-     * @param carLocation       the location of the car
-     * @param carDimensions     the dimensions of the car
-     * @param availabilityStart the start date of the car's availability
-     * @param availabilityEnd   the end date of the car's availability
-     * @param carPrice          the price of the car
-     */
     public Car(int id, String vim, String make, String model, int year, String carImage, int passengers, String carLocation, String carDimensions, Date availabilityStart, Date availabilityEnd, float carPrice) {
         this.id = id;
         this.vim = vim;
@@ -72,14 +43,15 @@ public class Car implements ICar {
         this.carLocation = carLocation;
         this.carDimensions = carDimensions;
         this.availabilityStart = availabilityStart;
-        AvailabilityEnd = availabilityEnd;
+        this.availabilityEnd = availabilityEnd;
         this.carPrice = carPrice;
     }
 
     @Override
-    public float getCarPrice () {
+    public float getCarPrice() {
         return carPrice;
     }
+
     @Override
     public void setCarPrice(float carPrice) {
         this.carPrice = carPrice;
@@ -117,7 +89,7 @@ public class Car implements ICar {
 
     @Override
     public String getCarDimensions() {
-        return carLocation;
+        return carDimensions;
     }
 
     @Override
@@ -137,17 +109,19 @@ public class Car implements ICar {
 
     @Override
     public Date getAvailabilityEnd() {
-        return AvailabilityEnd;
+        return availabilityEnd;
     }
 
     @Override
     public void setAvailabilityEnd(Date availabilityEnd) {
-        this.AvailabilityEnd = availabilityEnd;
+        this.availabilityEnd = availabilityEnd;
     }
 
     @Override
-    public int getId() {
-        return id;
+    public String getId() throws IOException, InterruptedException {
+        String endpoint = "/vehicles/DecodeVin/" + vim + "?format=json&modelyear=" + year;
+        String response = carApiClient.pingApi(endpoint);
+        return parseMakeIdFromJson(response);
     }
 
     @Override
@@ -156,8 +130,7 @@ public class Car implements ICar {
     }
 
     @Override
-    public String getVim() throws IOException, InterruptedException {
-        carApiClient.pingApiWithAdditionalData(); // segments ("", "", ...)
+    public String getVim() {
         return vim;
     }
 
@@ -167,8 +140,11 @@ public class Car implements ICar {
     }
 
     @Override
-    public String getMake() {
-        return make;
+    public String getMake() throws IOException, InterruptedException {
+        String makeId = getId();
+        String endpoint = "/vehicles/GetMakesForMakeId/" + makeId + "?format=json";
+        String response = carApiClient.pingApi(endpoint);
+        return parseMakeFromJson(response);
     }
 
     @Override
@@ -177,8 +153,11 @@ public class Car implements ICar {
     }
 
     @Override
-    public String getModel() {
-        return model;
+    public String getModel() throws IOException, InterruptedException {
+        String makeId = getId();
+        String endpoint = "/vehicles/GetModelsForMakeId/" + makeId + "?format=json&modelyear=" + year;
+        String response = carApiClient.pingApi(endpoint);
+        return parseModelFromJson(response);
     }
 
     @Override
@@ -195,5 +174,69 @@ public class Car implements ICar {
     public void setYear(int year) {
         this.year = year;
     }
-}
 
+    private String parseMakeIdFromJson(String json) {
+        try {
+            // Use Gson to parse the JSON response and extract the MakeID
+            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
+            Gson gson = new Gson();
+            modelResponse response = gson.fromJson(json, modelResponse.class);
+            return response.getMakeID();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private String parseMakeFromJson(String json) {
+        try {
+            // Use Gson to parse the JSON response and extract the Make
+            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
+            Gson gson = new Gson();
+            modelResponse response = gson.fromJson(json, modelResponse.class);
+            return response.getMake();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private String parseModelFromJson(String json) {
+        try {
+            // Use Gson to parse the JSON response and extract the Model
+            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
+            Gson gson = new Gson();
+            modelResponse response = gson.fromJson(json, modelResponse.class);
+            return response.getModel();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    // Define the class representing the JSON response structure
+    private static class modelResponse {
+        @SerializedName("MakeID")
+        private String makeID;
+
+        @SerializedName("Make")
+        private String make;
+
+        @SerializedName("Model")
+        private String model;
+
+        // Getters for the fields
+
+        public String getMakeID() {
+            return makeID;
+        }
+
+        public String getMake() {
+            return make;
+        }
+
+        public String getModel() {
+            return model;
+        }
+    }
+}

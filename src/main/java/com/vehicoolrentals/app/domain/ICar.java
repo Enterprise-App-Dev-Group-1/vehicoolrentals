@@ -110,7 +110,7 @@ public interface ICar {
      *
      * @return the ID of the car
      */
-    int getId();
+    String getId() throws IOException, InterruptedException;
 
     /**
      * Sets the ID of the car.
@@ -119,49 +119,61 @@ public interface ICar {
      */
     void setId(int id);
 
+    /**
+     * Retrieves the Vehicle Identification Number (VIN) of the car.
+     *
+     * @return the Vehicle Identification Number (VIN) of the car
+     * @throws IOException          if an I/O error occurs while fetching the VIN
+     * @throws InterruptedException if the operation is interrupted while fetching the VIN
+     */
     String getVim() throws IOException, InterruptedException;
 
-    void setVim(String vim);
+    /**
+     * Sets the Vehicle Identification Number (VIN) of the car.
+     *
+     * @param vim the Vehicle Identification Number (VIN) of the car to set
+     */
+    void setVim(String vim) throws IOException, InterruptedException;
 
     /**
      * Retrieves the make of the car.
      *
      * @return the make of the car
      */
-    String getMake();
+    String getMake() throws IOException, InterruptedException;
 
     /**
      * Sets the make of the car.
      *
      * @param make the make of the car to set
      */
-    void setMake(String make);
+    void setMake(String make) throws IOException, InterruptedException;
 
     /**
      * Retrieves the model of the car.
      *
      * @return the model of the car
      */
-    String getModel();
+    String getModel() throws IOException, InterruptedException;
 
     /**
      * Sets the model of the car.
      *
      * @param model the model of the car to set
      */
-    void setModel(String model);
+    void setModel(String model) throws IOException, InterruptedException;
 
     /**
      * Retrieves the year of the car.
      *
      * @return the year of the car
      */
-    int getYear();
+    int getYear() throws IOException, InterruptedException;
 
     /**
      * Sets the year of the car.
      *
      * @param year the year of the car to set
      */
-    void setYear(int year);
+    void setYear(int year) throws IOException, InterruptedException;
 }
