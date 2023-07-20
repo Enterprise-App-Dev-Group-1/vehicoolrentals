@@ -39,7 +39,7 @@ INSERT INTO Customers (CustomerId, CustomerName, Email, PhoneNumber, ProfilePict
 Values (1, 'John Doe', 'johndoe@gmail.com', '11234567890', 'stockpfp1'),
        (2, 'Jane Doe', 'janedoe@gmail.com', '11234567890', 'stockpfp2'),
        (3, 'Jace Doe', 'jacedoe@gmail.com', '11234567890', 'stockpfp3')
-INSERT INTO Cars (CarId, Make, Model, CarImage, CarLocation, AvailabilityStart, AvailabilityEnd, Price, CompanyId)
+INSERT INTO Cars (CarId, Make, Model, CarImage, CarLocation, AvailabilityStart, AvailabilityEnd, Price)
 Values (1, 'Rubus', 'Tructa Saxum', 'stockcar1', 'Cincinnati, OH', '2023-09-05', '2023-10-05', 3.00),
        (2, 'Rubus', 'Hippurus Marmor', 'stockcar2', 'Cincinnati, OH', '2023-09-05', '2023-10-05', 179000.00),
        (3, 'Caecus', 'Tellus Maximus 9000', 'stockcar3', 'Cincinnati, OH', '2023-10-01', '2023-12-31', 300.00),
