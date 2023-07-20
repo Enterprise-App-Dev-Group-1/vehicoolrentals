@@ -51,7 +51,7 @@ public class CarController {
 
         // Make the API call and retrieve car information
         try {
-            String carInfo = carApiClient.getCarInformation(apiKey);
+            String carInfo = carApiClient.pingApi(apiKey);
 
             // Parse the JSON response using Gson
             CarData carData = gson.fromJson(carInfo, CarData.class);
