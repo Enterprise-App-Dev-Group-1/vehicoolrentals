@@ -31,8 +31,7 @@ public class CarApiRepository extends CarRepository {
     @Override
     public Car findById(int carId) {
         String carData = carApiClient.getCarData(carId);
-        Car car = parseCarDataFromJson(carData);
-        return car;
+        return parseCarDataFromJson(carData);
     }
 
     @Override

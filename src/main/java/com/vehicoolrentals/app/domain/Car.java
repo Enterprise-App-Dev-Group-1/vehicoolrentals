@@ -9,12 +9,9 @@ import java.util.Date;
 
 public class Car implements ICar {
 
-    private CarApiClient carApiClient;
+    private final CarApiClient carApiClient;
 
-    private int id;
     private String vim;
-    private String make;
-    private String model;
     private int year;
     private String carImage;
     private int passengers;
@@ -24,27 +21,12 @@ public class Car implements ICar {
     private Date availabilityEnd;
     private float carPrice;
 
-    public Car(int id, String vim, String make, int year) {
-        this.id = id;
-        this.vim = vim;
-        this.make = make;
-        this.model = model;
-        this.year = year;
+    public Car(CarApiClient carApiClient, int carId, String dummyMake, String dummyModel, int i) {
+        this.carApiClient = carApiClient;
     }
 
-    public Car(int id, String vim, String make, String model, int year, String carImage, int passengers, String carLocation, String carDimensions, Date availabilityStart, Date availabilityEnd, float carPrice) {
-        this.id = id;
-        this.vim = vim;
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.carImage = carImage;
-        this.passengers = passengers;
-        this.carLocation = carLocation;
-        this.carDimensions = carDimensions;
-        this.availabilityStart = availabilityStart;
-        this.availabilityEnd = availabilityEnd;
-        this.carPrice = carPrice;
+    public Car(int carId, String dummyMake, String dummyModel, int i) {
+        this.carApiClient = null;
     }
 
     @Override
@@ -118,15 +100,7 @@ public class Car implements ICar {
     }
 
     @Override
-    public String getId() throws IOException, InterruptedException {
-        String endpoint = "/vehicles/DecodeVin/" + vim + "?format=json&modelyear=" + year;
-        String response = carApiClient.pingApi(endpoint);
-        return parseMakeIdFromJson(response);
-    }
-
-    @Override
     public void setId(int id) {
-        this.id = id;
     }
 
     @Override
@@ -149,7 +123,13 @@ public class Car implements ICar {
 
     @Override
     public void setMake(String make) {
-        this.make = make;
+    }
+
+    @Override
+    public String getId() {
+        String endpoint = "/vehicles/DecodeVin/" + vim + "?format=json&modelyear=" + year;
+        String response = carApiClient.pingApi(endpoint);
+        return parseMakeIdFromJson(response);
     }
 
     @Override
@@ -162,7 +142,6 @@ public class Car implements ICar {
 
     @Override
     public void setModel(String model) {
-        this.model = model;
     }
 
     @Override
@@ -212,6 +191,13 @@ public class Car implements ICar {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public void getModelYear() {
+    }
+
+    public void setModelYear(int i) {
+        getModelYear();
     }
 
     // Define the class representing the JSON response structure
