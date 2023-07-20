@@ -1,11 +1,17 @@
 package com.vehicoolrentals.app.domain;
 
+import com.vehicoolrentals.app.CarApiClient;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.IOException;
 import java.util.Date;
 
 /**
  * The Car class represents a car entity with its properties and implements the ICar interface.
  */
 public class Car implements ICar {
+
+    private com.vehicoolrentals.app.CarApiClient carApiClient;
 
     // MySql Database id
     private int id;
@@ -150,7 +156,8 @@ public class Car implements ICar {
     }
 
     @Override
-    public String getVim() {
+    public String getVim() throws IOException, InterruptedException {
+        carApiClient.pingApiWithAdditionalData(); // segments ("", "", ...)
         return vim;
     }
 

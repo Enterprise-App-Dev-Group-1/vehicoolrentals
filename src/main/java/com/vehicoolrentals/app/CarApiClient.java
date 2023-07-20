@@ -20,48 +20,8 @@ public class CarApiClient {
     @Autowired
     private com.vehicoolrentals.app.service.CarService carService;
 
-    private String apiKey;
-
     /**
-     * Retrieves the API key used to access the car API.
-     *
-     * @return the API key
-     */
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    /**
-     * Sets the API key used to access the car API.
-     *
-     * @param apiKey the API key to set
-     */
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
-    }
-
-    /**
-     * Authenticates the API key if it is invalid or blank.
-     * If the API key is null or empty, this method attempts to authenticate it by setting the provided API key.
-     * If the API key is valid or has already been set, this method will not perform any action.
-     *
-     * @throws IllegalArgumentException if the API key is blank (empty or contains only whitespace)
-     */
-    public void authenticateApi() {
-        // Check if the provided apiKey is valid and not blank
-        if (apiKey == null || apiKey.trim().isEmpty()) {
-            System.out.println("Invalid or blank API key. Authenticating...");
-            // Perform authentication logic here (if required)
-            // For example, you can make a request to a server to validate the API key.
-            // For demonstration purposes, let's simply set the provided apiKey.
-            setApiKey(apiKey);
-        } else {
-            System.out.println("API key is valid.");
-        }
-    }
-
-    /**
-     * Retrieves car information from the car API using the provided API key.
+     * Retrieves car information from the car API.
      *
      * @return the response body containing the car information
      * @throws IOException          if an I/O error occurs while sending the request
@@ -75,9 +35,7 @@ public class CarApiClient {
 
         // Create an HttpRequest with the necessary headers and URL
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://car-api2.p.rapidapi.com/api/"))
-                .header("X-RapidAPI-Key", getApiKey())
-                .header("X-RapidAPI-Host", "car-api2.p.rapidapi.com")
+                .uri(URI.create("https://vpic.nhtsa.dot.gov/api/"))
                 .build();
 
         // Send the request and retrieve the response
@@ -103,7 +61,7 @@ public class CarApiClient {
                 .build();
 
         // Construct the complete URI with additional data
-        StringBuilder uriBuilder = new StringBuilder("https://car-api2.p.rapidapi.com/api/");
+        StringBuilder uriBuilder = new StringBuilder("https://vpic.nhtsa.dot.gov/api/");
         for (String segment : segments) {
             uriBuilder.append(segment).append("/");
         }
@@ -111,8 +69,6 @@ public class CarApiClient {
         // Create an HttpRequest with the necessary headers and the modified URL
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uriBuilder.toString()))
-                .header("X-RapidAPI-Key", getApiKey())
-                .header("X-RapidAPI-Host", "car-api2.p.rapidapi.com")
                 .build();
 
         // Send the request and retrieve the response
@@ -121,6 +77,7 @@ public class CarApiClient {
         // Return the response body
         response.body();
     }
+
     /**
      * Retrieves a car from the car API using the provided ID.
      *

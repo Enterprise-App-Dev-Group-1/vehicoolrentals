@@ -1,5 +1,6 @@
 package com.vehicoolrentals.app.domain;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -118,7 +119,7 @@ public interface ICar {
      */
     void setId(int id);
 
-    String getVim();
+    String getVim() throws IOException, InterruptedException;
 
     void setVim(String vim);
 
