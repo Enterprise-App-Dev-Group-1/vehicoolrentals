@@ -18,7 +18,7 @@ public class SearchController {
     @GetMapping("/search")
     public String carPage(Model model) {
         model.addAttribute("content", "search");
-        model.addAttribute("message", "Search Page Placeholder");
+        model.addAttribute("message", "Search for a car \n(VIN, Make, Model, Year)");
         return "layout";
     }
 }
