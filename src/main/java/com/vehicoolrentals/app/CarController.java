@@ -51,13 +51,15 @@ public class CarController {
 
         // Make the API call and retrieve car information
         try {
-            String carInfo = carApiClient.getCarInformation(apiKey);
+            String vim = "1G1JC5444R7252367";
+            int year = 0;
+            String carInfo = carApiClient.pingApi(apiKey, vim, "?format=json&modelyear=", String.valueOf(year));
 
             // Parse the JSON response using Gson
             CarData carData = gson.fromJson(carInfo, CarData.class);
 
             // Extract the desired fields from the CarData object
-            int year = carData.getYear();
+            year = carData.getYear();
             String make = carData.getMake();
             String model = carData.getModel();
             double price = carData.getTrims()[0].getMsrp();
