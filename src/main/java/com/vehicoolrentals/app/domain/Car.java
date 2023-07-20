@@ -21,8 +21,12 @@ public class Car implements ICar {
     private Date availabilityEnd;
     private float carPrice;
 
+    public Car(CarApiClient carApiClient, int carId, String dummyMake, String dummyModel, int i) {
+        this.carApiClient = carApiClient;
+    }
+
     public Car(int carId, String dummyMake, String dummyModel, int i) {
-        carApiClient = new CarApiClient();
+        this.carApiClient = null;
     }
 
     @Override
@@ -96,13 +100,6 @@ public class Car implements ICar {
     }
 
     @Override
-    public String getId() throws IOException, InterruptedException {
-        String endpoint = "/vehicles/DecodeVin/" + vim + "?format=json&modelyear=" + year;
-        String response = carApiClient.pingApi(endpoint);
-        return parseMakeIdFromJson(response);
-    }
-
-    @Override
     public void setId(int id) {
     }
 
@@ -126,6 +123,13 @@ public class Car implements ICar {
 
     @Override
     public void setMake(String make) {
+    }
+
+    @Override
+    public String getId() {
+        String endpoint = "/vehicles/DecodeVin/" + vim + "?format=json&modelyear=" + year;
+        String response = carApiClient.pingApi(endpoint);
+        return parseMakeIdFromJson(response);
     }
 
     @Override

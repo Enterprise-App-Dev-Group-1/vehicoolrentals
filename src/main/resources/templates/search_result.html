@@ -3,16 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Search Result</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
   <!-- Bootswatch Theme CSS -->
   <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
-  <link rel="stylesheet" th:href="@{/css/site.css}" />
 </head>
 <body>
 <div class="container text-center pt-5">
   <h1>Search Result Page</h1>
-  <p th:text="${searchResult}"></p>
+  <p th:text="${jsonData}" id="carData"></p>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Check if the jsonData is empty or does not contain car information
+    var jsonData = document.getElementById("carData").textContent;
+    if (!jsonData.trim() || jsonData.includes("No HTTP resource was found")) {
+      // Display a message
+      var messageElement = document.createElement("p");
+      messageElement.textContent = "Car not found. Redirecting back to search page...";
+      document.querySelector(".container").appendChild(messageElement);
+
+      // Redirect to the search page after 5 seconds
+      setTimeout(function() {
+        window.location.href = "/search";
+      }, 5000);
+    }
+  });
+</script>
 </body>
 </html>

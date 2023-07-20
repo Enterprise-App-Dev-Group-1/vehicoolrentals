@@ -27,6 +27,119 @@ public class CarServiceTest {
 		carService = new CarService(carRepository);
 	}
 
+	@Test
+	void getCarPrice() {
+	}
+
+	@Test
+	void setCarPrice() {
+	}
+
+	@Test
+	void getCarImage() {
+	}
+
+	@Test
+	void setCarImage() {
+	}
+
+	@Test
+	void getPassengers() {
+	}
+
+	@Test
+	void setPassengers() {
+	}
+
+	@Test
+	void getCarLocation() {
+	}
+
+	@Test
+	void setCarLocation() {
+	}
+
+	@Test
+	void getCarDimensions() {
+	}
+
+	@Test
+	void setCarDimensions() {
+	}
+
+	@Test
+	void getAvailabilityStart() {
+	}
+
+	@Test
+	void setAvailabilityStart() {
+	}
+
+	@Test
+	void getAvailabilityEnd() {
+	}
+
+	@Test
+	void setAvailabilityEnd() {
+	}
+
+	@Test
+	void getId() {
+	}
+
+	@Test
+	void setId() {
+	}
+
+	@Test
+	void getVim() {
+	}
+
+	@Test
+	void setVim() {
+	}
+
+	@Test
+	void getMake() {
+	}
+
+	@Test
+	void setMake() {
+	}
+
+	@Test
+	void testGetId() {
+	}
+
+	@Test
+	void testGetMake() {
+	}
+
+	@Test
+	void getModel() {
+	}
+
+	@Test
+	void setModel() {
+	}
+
+	@Test
+	void getYear() {
+	}
+
+	@Test
+	void setYear() {
+	}
+
+	@Test
+	void getModelYear() {
+	}
+
+	@Test
+	void setModelYear() {
+	}
+
+
 	private static class TestCarRepository extends CarRepository {
 
 		private final Map<Integer, Car> cars = new HashMap<>();
