@@ -2,32 +2,47 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Search Result</title>
-  <!-- Bootswatch Theme CSS -->
+  <title>Search Results</title>
   <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
 </head>
 <body>
-<div class="container text-center pt-5">
-  <h1>Search Result Page</h1>
-  <p th:text="${jsonData}" id="carData"></p>
+<!-- Include the layout template - header section -->
+<div th:replace="layout :: header"></div>
+
+<div class="container mt-5">
+  <h1 class="text-center">Search Results</h1>
+  <div class="d-flex justify-content-center">
+    <table class="table table-striped mt-3">
+      <thead>
+      <tr>
+        <th>Manufacturer Common Name</th>
+        <th>Manufacturer ID</th>
+        <th>Manufacturer Name</th>
+        <th>Other Manufacturer Details</th>
+        <th>Postal Code</th>
+        <th>State Province</th>
+        <th>Vehicle Types</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="carDetails : ${rentedCarDetailsList}">
+        <td th:text="${carDetails.Mfr_CommonName}"></td>
+        <td th:text="${carDetails.Mfr_ID}"></td>
+        <td th:text="${carDetails.Mfr_Name}"></td>
+        <td th:text="${carDetails.OtherManufacturerDetails}"></td>
+        <td th:text="${carDetails.PostalCode}"></td>
+        <td th:text="${carDetails.StateProvince}"></td>
+        <td>
+          <span th:each="vehicleType, iter : ${carDetails.VehicleTypes}" th:text="${vehicleType.Name}" th:if="${iter.index} == 0"></span>
+          <span th:each="vehicleType, iter : ${carDetails.VehicleTypes}" th:text="${', ' + vehicleType.Name}" th:if="${iter.index} > 0"></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Check if the jsonData is empty or does not contain car information
-    var jsonData = document.getElementById("carData").textContent;
-    if (!jsonData.trim() || jsonData.includes("No HTTP resource was found")) {
-      // Display a message
-      var messageElement = document.createElement("p");
-      messageElement.textContent = "Car not found. Redirecting back to search page...";
-      document.querySelector(".container").appendChild(messageElement);
-
-      // Redirect to the search page after 5 seconds
-      setTimeout(function() {
-        window.location.href = "/search";
-      }, 5000);
-    }
-  });
-</script>
+<!-- Include the layout template - footer section -->
+<div th:replace="layout :: footer"></div>
 </body>
 </html>
