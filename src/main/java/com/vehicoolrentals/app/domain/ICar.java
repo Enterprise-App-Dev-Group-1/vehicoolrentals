@@ -118,6 +118,10 @@ public interface ICar {
      */
     void setId(int id);
 
+    String getVim();
+
+    void setVim(String vim);
+
     /**
      * Retrieves the make of the car.
      *

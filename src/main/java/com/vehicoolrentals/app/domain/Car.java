@@ -6,7 +6,13 @@ import java.util.Date;
  * The Car class represents a car entity with its properties and implements the ICar interface.
  */
 public class Car implements ICar {
+
+    // MySql Database id
     private int id;
+
+    // Vim for CarApi
+    private String vim;
+
     private String make;
     private String model;
     private int year;
@@ -26,8 +32,9 @@ public class Car implements ICar {
      * @param model the model of the car
      * @param year  the year of the car
      */
-    public Car(int id, String make, String model, int year) {
+    public Car(int id, String vim, String make, String model, int year) {
         this.id = id;
+        this.vim = vim;
         this.make = make;
         this.model = model;
         this.year = year;
@@ -48,8 +55,9 @@ public class Car implements ICar {
      * @param availabilityEnd   the end date of the car's availability
      * @param carPrice          the price of the car
      */
-    public Car(int id, String make, String model, int year, String carImage, int passengers, String carLocation, String carDimensions, Date availabilityStart, Date availabilityEnd, float carPrice) {
+    public Car(int id, String vim, String make, String model, int year, String carImage, int passengers, String carLocation, String carDimensions, Date availabilityStart, Date availabilityEnd, float carPrice) {
         this.id = id;
+        this.vim = vim;
         this.make = make;
         this.model = model;
         this.year = year;
@@ -139,6 +147,16 @@ public class Car implements ICar {
     @Override
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String getVim() {
+        return vim;
+    }
+
+    @Override
+    public void setVim(String vim) {
+        this.vim = vim;
     }
 
     @Override
