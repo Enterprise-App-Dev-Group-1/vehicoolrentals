@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
+    <!-- Bootswatch Theme CSS -->
+    <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
 </head>
 <body>
-    <div class="container text-center pt-5">
-        <h1>Search Page</h1>
-        <p th:text="${message}"></p>
-    </div>
+<!-- Include the layout template - header section -->
+<div th:replace="layout :: header"></div>
 
-    <form action="action_page.php">
-        <div class="container">
-            <h1>Search Vehi-Cool rentals</h1>
-            <p>Great deals on car rentals</p>
-            <hr>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="car-name">Name of Vehicle</span>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default">
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="year-model">Year of Model</span>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default">
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="price">Price</span>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                       aria-describedby="inputGroup-sizing-default">
-            </div>
-            <hr>
-            <button type="button" class="btn btn-primary">Search</button>
+<div class="container text-center pt-5">
+    <h1>Search Page</h1>
+    <p th:text="${message}"></p>
+</div>
 
+<form action="#" th:action="@{/search}" th:method="get">
+    <div class="container">
+        <h1>Search Vehi-Cool rentals</h1>
+        <p>Great deals on car rentals</p>
+        <hr>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="car-name">Name of Vehicle</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default" name="vehicleName">
         </div>
-    </form>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="year-model">Year of Model</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default" name="yearOfModel">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="price">Price</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default" name="price">
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
 
+<!-- Include the layout template - footer section -->
+<div th:replace="layout :: footer"></div>
 </body>
 </html>

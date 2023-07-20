@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Results</title>
+  <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+</head>
+<body>
+<!-- Include the layout template - header section -->
+<div th:replace="layout :: header"></div>
+
+<div class="container mt-5">
+  <h1 class="text-center">Search Results</h1>
+  <div class="d-flex justify-content-center">
+    <table class="table table-striped mt-3">
+      <thead>
+      <tr>
+        <th>Manufacturer Common Name</th>
+        <th>Manufacturer ID</th>
+        <th>Manufacturer Name</th>
+        <th>Other Manufacturer Details</th>
+        <th>Postal Code</th>
+        <th>State Province</th>
+        <th>Vehicle Types</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="carDetails : ${rentedCarDetailsList}">
+        <td th:text="${carDetails.Mfr_CommonName}"></td>
+        <td th:text="${carDetails.Mfr_ID}"></td>
+        <td th:text="${carDetails.Mfr_Name}"></td>
+        <td th:text="${carDetails.OtherManufacturerDetails}"></td>
+        <td th:text="${carDetails.PostalCode}"></td>
+        <td th:text="${carDetails.StateProvince}"></td>
+        <td>
+          <span th:each="vehicleType, iter : ${carDetails.VehicleTypes}" th:text="${vehicleType.Name}" th:if="${iter.index} == 0"></span>
+          <span th:each="vehicleType, iter : ${carDetails.VehicleTypes}" th:text="${', ' + vehicleType.Name}" th:if="${iter.index} > 0"></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Include the layout template - footer section -->
+<div th:replace="layout :: footer"></div>
+</body>
+</html>

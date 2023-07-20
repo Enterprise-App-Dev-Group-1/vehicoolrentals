@@ -1,174 +1,228 @@
 package com.vehicoolrentals.app.domain;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
+import com.vehicoolrentals.app.CarApiClient;
+
+import java.io.IOException;
 import java.util.Date;
 
-/**
- * The Car class represents a car entity with its properties and implements the ICar interface.
- */
 public class Car implements ICar {
-    private int Id;
-    private String Make;
-    private String Model;
-    private int Year;
-    public String CarImage;
-    public int Passengers;
-    public String CarLocation;
-    public String CarDimensions;
-    public Date AvailabilityStart;
-    public Date AvailabilityEnd;
-    public float CarPrice;
 
-    /**
-     * Constructs a Car object with the specified ID, make, model, and year.
-     *
-     * @param id    the ID of the car
-     * @param make  the make of the car
-     * @param model the model of the car
-     * @param year  the year of the car
-     */
-    public Car(int id, String make, String model, int year) {
-        this.Id = id;
-        this.Make = make;
-        this.Model = model;
-        this.Year = year;
+    private final CarApiClient carApiClient;
+
+    private String vim;
+    private int year;
+    private String carImage;
+    private int passengers;
+    private String carLocation;
+    private String carDimensions;
+    private Date availabilityStart;
+    private Date availabilityEnd;
+    private float carPrice;
+
+    public Car(CarApiClient carApiClient, int carId, String dummyMake, String dummyModel, int i) {
+        this.carApiClient = carApiClient;
     }
 
-    /**
-     * Constructs a Car object with the specified properties.
-     *
-     * @param id                the ID of the car
-     * @param make              the make of the car
-     * @param model             the model of the car
-     * @param year              the year of the car
-     * @param carImage          the image of the car
-     * @param passengers        the number of passengers the car can accommodate
-     * @param carLocation       the location of the car
-     * @param carDimensions     the dimensions of the car
-     * @param availabilityStart the start date of the car's availability
-     * @param availabilityEnd   the end date of the car's availability
-     * @param carPrice          the price of the car
-     */
-    public Car(int id, String make, String model, int year, String carImage, int passengers, String carLocation, String carDimensions, Date availabilityStart, Date availabilityEnd, float carPrice) {
-        this.Id = id;
-        this.Make = make;
-        this.Model = model;
-        this.Year = year;
-        CarImage = carImage;
-        Passengers = passengers;
-        CarLocation = carLocation;
-        CarDimensions = carDimensions;
-        AvailabilityStart = availabilityStart;
-        AvailabilityEnd = availabilityEnd;
-        CarPrice = carPrice;
+    public Car(int carId, String dummyMake, String dummyModel, int i) {
+        this.carApiClient = null;
     }
 
     @Override
     public float getCarPrice() {
-        return CarPrice;
+        return carPrice;
     }
+
     @Override
     public void setCarPrice(float carPrice) {
-        this.CarPrice = carPrice;
+        this.carPrice = carPrice;
     }
 
     @Override
     public String getCarImage() {
-        return CarImage;
+        return carImage;
     }
 
     @Override
     public void setCarImage(String carImage) {
-        this.CarImage = carImage;
+        this.carImage = carImage;
     }
 
     @Override
     public int getPassengers() {
-        return Passengers;
+        return passengers;
     }
 
     @Override
     public void setPassengers(int passengers) {
-        this.Passengers = passengers;
+        this.passengers = passengers;
     }
 
     @Override
     public String getCarLocation() {
-        return CarLocation;
+        return carLocation;
     }
 
     @Override
     public void setCarLocation(String carLocation) {
-        this.CarLocation = carLocation;
+        this.carLocation = carLocation;
     }
 
     @Override
     public String getCarDimensions() {
-        return CarLocation;
+        return carDimensions;
     }
 
     @Override
     public void setCarDimensions(String carDimensions) {
-        this.CarDimensions = carDimensions;
+        this.carDimensions = carDimensions;
     }
 
     @Override
     public Date getAvailabilityStart() {
-        return AvailabilityStart;
+        return availabilityStart;
     }
 
     @Override
     public void setAvailabilityStart(Date availabilityStart) {
-        this.AvailabilityStart = availabilityStart;
+        this.availabilityStart = availabilityStart;
     }
 
     @Override
     public Date getAvailabilityEnd() {
-        return AvailabilityEnd;
+        return availabilityEnd;
     }
 
     @Override
     public void setAvailabilityEnd(Date availabilityEnd) {
-        this.AvailabilityEnd = availabilityEnd;
-    }
-
-    @Override
-    public int getId() {
-        return Id;
+        this.availabilityEnd = availabilityEnd;
     }
 
     @Override
     public void setId(int id) {
-        this.Id = id;
     }
 
     @Override
-    public String getMake() {
-        return Make;
+    public String getVim() {
+        return vim;
+    }
+
+    @Override
+    public void setVim(String vim) {
+        this.vim = vim;
+    }
+
+    @Override
+    public String getMake() throws IOException, InterruptedException {
+        String makeId = getId();
+        String endpoint = "/vehicles/GetMakesForMakeId/" + makeId + "?format=json";
+        String response = carApiClient.pingApi(endpoint);
+        return parseMakeFromJson(response);
     }
 
     @Override
     public void setMake(String make) {
-        this.Make = make;
     }
 
     @Override
-    public String getModel() {
-        return Model;
+    public String getId() {
+        String endpoint = "/vehicles/DecodeVin/" + vim + "?format=json&modelyear=" + year;
+        String response = carApiClient.pingApi(endpoint);
+        return parseMakeIdFromJson(response);
+    }
+
+    @Override
+    public String getModel() throws IOException, InterruptedException {
+        String makeId = getId();
+        String endpoint = "/vehicles/GetModelsForMakeId/" + makeId + "?format=json&modelyear=" + year;
+        String response = carApiClient.pingApi(endpoint);
+        return parseModelFromJson(response);
     }
 
     @Override
     public void setModel(String model) {
-        this.Model = model;
     }
 
     @Override
     public int getYear() {
-        return Year;
+        return year;
     }
 
     @Override
     public void setYear(int year) {
-        this.Year = year;
+        this.year = year;
+    }
+
+    private String parseMakeIdFromJson(String json) {
+        try {
+            // Use Gson to parse the JSON response and extract the MakeID
+            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
+            Gson gson = new Gson();
+            modelResponse response = gson.fromJson(json, modelResponse.class);
+            return response.getMakeID();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private String parseMakeFromJson(String json) {
+        try {
+            // Use Gson to parse the JSON response and extract the Make
+            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
+            Gson gson = new Gson();
+            modelResponse response = gson.fromJson(json, modelResponse.class);
+            return response.getMake();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private String parseModelFromJson(String json) {
+        try {
+            // Use Gson to parse the JSON response and extract the Model
+            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
+            Gson gson = new Gson();
+            modelResponse response = gson.fromJson(json, modelResponse.class);
+            return response.getModel();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public void getModelYear() {
+    }
+
+    public void setModelYear(int i) {
+        getModelYear();
+    }
+
+    // Define the class representing the JSON response structure
+    private static class modelResponse {
+        @SerializedName("MakeID")
+        private String makeID;
+
+        @SerializedName("Make")
+        private String make;
+
+        @SerializedName("Model")
+        private String model;
+
+        // Getters for the fields
+
+        public String getMakeID() {
+            return makeID;
+        }
+
+        public String getMake() {
+            return make;
+        }
+
+        public String getModel() {
+            return model;
+        }
     }
 }
-

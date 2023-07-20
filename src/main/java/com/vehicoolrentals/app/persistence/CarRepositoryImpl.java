@@ -1,57 +1,36 @@
 package com.vehicoolrentals.app.persistence;
 
 import com.vehicoolrentals.app.domain.Car;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
- * The CarRepositoryImpl class implements the CarRepository interface to provide data access methods for cars.
+ * The CarRepository class is responsible for managing car data and provides methods to retrieve cars by ID.
  */
-public class CarRepositoryImpl implements CarRepository {
+@Repository
+public class CarRepositoryImpl extends CarRepository {
+
+    public CarRepositoryImpl(List<Car> cars) {
+        super();
+    }
+
     /**
      * Finds a car by its ID.
      *
      * @param carId the ID of the car to find
-     * @return the car with the specified ID, or null if not found
+     * @return the car with the given ID, or null if not found
      */
-    @Override
     public Car findById(int carId) {
-        // Implementation logic to retrieve the car from the persistence layer
-        // Replace this with actual implementation
-
-        // For demonstration purposes, let's assume we have a list of cars stored in memory
-        // and we retrieve the car based on the given carId
-        // You should replace this with your own logic to retrieve the car from your persistence layer
-
-        List<Car> cars = getAllCars(); // Replace with your logic to fetch cars from the persistence layer
-
-        for (Car car : cars) {
-            if (car.getId() == carId) {
-                return car;
-            }
-        }
-
-        return null; // If car is not found, return null or throw an exception as per your requirement
+        // Call the API using the CarApiClient to get the car information by ID
+        // You can implement the API call using the carApiClient.pingApi() method with appropriate parameters
+        // For this example, let's just return a dummy Car object.
+        return new Car(carId, "Dummy Make", "Dummy Model", 0);
     }
 
-    /**
-     * Fetches all cars from the persistence layer.
-     *
-     * @return the list of all cars
-     */
-    private List<Car> getAllCars() {
-        // Dummy method to simulate fetching all cars from the persistence layer
-        // Replace this with actual logic to fetch cars from the persistence layer
-        // For demonstration purposes, let's assume we have a list of cars stored in memory
-        // Replace this with own logic to fetch cars from your persistence layer
-
-        List<Car> cars = new ArrayList<>();
-
-        cars.add(new Car(1, "Toyota", "Camry", 2022));
-        cars.add(new Car(2, "Honda", "Civic", 2021));
-        cars.add(new Car(3, "Ford", "Mustang", 2023));
-
-        return cars;
+    @Override
+    public boolean checkAvailability(int carId, LocalDate startDate, LocalDate endDate) {
+        return false;
     }
 }
