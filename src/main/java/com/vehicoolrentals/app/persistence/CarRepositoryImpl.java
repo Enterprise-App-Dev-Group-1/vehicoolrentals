@@ -3,6 +3,7 @@ package com.vehicoolrentals.app.persistence;
 import com.vehicoolrentals.app.domain.Car;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ import java.util.List;
 public class CarRepositoryImpl extends CarRepository {
 
     public CarRepositoryImpl(List<Car> cars) {
+        super();
     }
 
     /**
@@ -25,5 +27,10 @@ public class CarRepositoryImpl extends CarRepository {
         // You can implement the API call using the carApiClient.pingApi() method with appropriate parameters
         // For this example, let's just return a dummy Car object.
         return new Car(carId, "Dummy Make", "Dummy Model", 0);
+    }
+
+    @Override
+    public boolean checkAvailability(int carId, LocalDate startDate, LocalDate endDate) {
+        return false;
     }
 }

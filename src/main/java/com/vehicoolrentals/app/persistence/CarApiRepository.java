@@ -3,6 +3,8 @@ package com.vehicoolrentals.app.persistence;
 import com.vehicoolrentals.app.CarApiClient;
 import com.vehicoolrentals.app.domain.Car;
 
+import java.time.LocalDate;
+
 /**
  * The CarApiRepository class is responsible for managing car data using the CarApiClient and provides methods
  * to retrieve cars by ID.
@@ -31,6 +33,11 @@ public class CarApiRepository extends CarRepository {
         String carData = carApiClient.getCarData(carId);
         Car car = parseCarDataFromJson(carData);
         return car;
+    }
+
+    @Override
+    public boolean checkAvailability(int carId, LocalDate startDate, LocalDate endDate) {
+        return false;
     }
 
     /**

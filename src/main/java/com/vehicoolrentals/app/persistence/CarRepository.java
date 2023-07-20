@@ -3,6 +3,7 @@ package com.vehicoolrentals.app.persistence;
 import com.vehicoolrentals.app.domain.Car;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,5 +56,7 @@ public abstract class CarRepository {
     }
 
     public abstract Car findById(int carId);
+
+    public abstract boolean checkAvailability(int carId, LocalDate startDate, LocalDate endDate);
 }
 // Compare this snippet from src\main\java\com\vehicoolrentals\app\persistence\CarRepository.java:

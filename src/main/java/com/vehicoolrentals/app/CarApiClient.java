@@ -17,7 +17,6 @@ import java.time.Duration;
 @Component
 public class CarApiClient {
     private final CarRepository carRepository;
-
     public CarApiClient(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
