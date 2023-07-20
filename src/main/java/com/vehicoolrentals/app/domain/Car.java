@@ -1,24 +1,22 @@
 package com.vehicoolrentals.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.util.Date;
 
 /**
  * The Car class represents a car entity with its properties and implements the ICar interface.
  */
 public class Car implements ICar {
-    private int Id;
-    private String Make;
-    private String Model;
-    private int Year;
-    public String CarImage;
-    public int Passengers;
-    public String CarLocation;
-    public String CarDimensions;
-    public Date AvailabilityStart;
+    private int id;
+    private String make;
+    private String model;
+    private int year;
+    public String carImage;
+    public int passengers;
+    public String carLocation;
+    public String carDimensions;
+    public Date availabilityStart;
     public Date AvailabilityEnd;
-    public float CarPrice;
+    public float carPrice;
 
     /**
      * Constructs a Car object with the specified ID, make, model, and year.
@@ -29,10 +27,10 @@ public class Car implements ICar {
      * @param year  the year of the car
      */
     public Car(int id, String make, String model, int year) {
-        this.Id = id;
-        this.Make = make;
-        this.Model = model;
-        this.Year = year;
+        this.id = id;
+        this.make = make;
+        this.model = model;
+        this.year = year;
     }
 
     /**
@@ -51,76 +49,76 @@ public class Car implements ICar {
      * @param carPrice          the price of the car
      */
     public Car(int id, String make, String model, int year, String carImage, int passengers, String carLocation, String carDimensions, Date availabilityStart, Date availabilityEnd, float carPrice) {
-        this.Id = id;
-        this.Make = make;
-        this.Model = model;
-        this.Year = year;
-        CarImage = carImage;
-        Passengers = passengers;
-        CarLocation = carLocation;
-        CarDimensions = carDimensions;
-        AvailabilityStart = availabilityStart;
+        this.id = id;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.carImage = carImage;
+        this.passengers = passengers;
+        this.carLocation = carLocation;
+        this.carDimensions = carDimensions;
+        this.availabilityStart = availabilityStart;
         AvailabilityEnd = availabilityEnd;
-        CarPrice = carPrice;
+        this.carPrice = carPrice;
     }
 
     @Override
     public float getCarPrice () {
-        return CarPrice;
+        return carPrice;
     }
     @Override
     public void setCarPrice(float carPrice) {
-        this.CarPrice = carPrice;
+        this.carPrice = carPrice;
     }
 
     @Override
     public String getCarImage() {
-        return CarImage;
+        return carImage;
     }
 
     @Override
     public void setCarImage(String carImage) {
-        this.CarImage = carImage;
+        this.carImage = carImage;
     }
 
     @Override
     public int getPassengers() {
-        return Passengers;
+        return passengers;
     }
 
     @Override
     public void setPassengers(int passengers) {
-        this.Passengers = passengers;
+        this.passengers = passengers;
     }
 
     @Override
     public String getCarLocation() {
-        return CarLocation;
+        return carLocation;
     }
 
     @Override
     public void setCarLocation(String carLocation) {
-        this.CarLocation = carLocation;
+        this.carLocation = carLocation;
     }
 
     @Override
     public String getCarDimensions() {
-        return CarLocation;
+        return carLocation;
     }
 
     @Override
     public void setCarDimensions(String carDimensions) {
-        this.CarDimensions = carDimensions;
+        this.carDimensions = carDimensions;
     }
 
     @Override
     public Date getAvailabilityStart() {
-        return AvailabilityStart;
+        return availabilityStart;
     }
 
     @Override
     public void setAvailabilityStart(Date availabilityStart) {
-        this.AvailabilityStart = availabilityStart;
+        this.availabilityStart = availabilityStart;
     }
 
     @Override
@@ -135,42 +133,42 @@ public class Car implements ICar {
 
     @Override
     public int getId() {
-        return Id;
+        return id;
     }
 
     @Override
     public void setId(int id) {
-        this.Id = id;
+        this.id = id;
     }
 
     @Override
     public String getMake() {
-        return Make;
+        return make;
     }
 
     @Override
     public void setMake(String make) {
-        this.Make = make;
+        this.make = make;
     }
 
     @Override
     public String getModel() {
-        return Model;
+        return model;
     }
 
     @Override
     public void setModel(String model) {
-        this.Model = model;
+        this.model = model;
     }
 
     @Override
     public int getYear() {
-        return Year;
+        return year;
     }
 
     @Override
     public void setYear(int year) {
-        this.Year = year;
+        this.year = year;
     }
 }
 
