@@ -77,11 +77,7 @@ public interface ICar {
      */
     void setCarDimensions(String carDimensions);
 
-    float getprice();
-
-    void setprice(float price);
-
-    float getPrice();
+    float getPrice(String make, String model, int year);
 
     void setPrice(float price);
 

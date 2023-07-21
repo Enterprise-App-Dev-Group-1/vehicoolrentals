@@ -14,13 +14,13 @@
     <div class="col-md-6">
       <h1>Car Details</h1>
       <p>Manufacturer ID: <span th:text="${id}">[Manufacturer ID]</span></p>
-      <p>Make: <span th:text="${carDetails.make}">[Make]</span></p>
-      <p>Model: <span th:text="${carDetails.model}">[Model]</span></p>
-      <p>Year: <span th:text="${carDetails.year}">[Year]</span></p>
+      <p>Make: <span th:text="${carDetails.getMake()}">[Make]</span></p>
+      <p>Model: <span th:text="${carDetails.getModel()}">[Model]</span></p>
+      <p>Year: <span th:text="${carDetails.getYear()}">[Year]</span></p>
       <p>Price: <span th:text="${carDetails.getPrice()}">[Price]</span></p>
       <!-- Rent button placeholder with logic comments (centered) -->
       <div class="text-center">
-        <form th:action="@{/rent}" method="post">
+        <form th:action="@{/rentals/${id}}" method="post">
           <!-- Add any required form fields -->
           <button type="submit" class="btn btn-primary">Rent Car</button>
         </form>

@@ -139,8 +139,64 @@ public class CarServiceTest {
 	void setModelYear() {
 	}
 
+    @Test
+    void getPrice() {
+    }
 
-	private static class TestCarRepository extends CarRepository {
+    @Test
+    void setprice() {
+    }
+
+    @Test
+    void testGetPrice() {
+    }
+
+    @Test
+    void setPrice() {
+    }
+
+    @Test
+    void getImageUrl() {
+    }
+
+    @Test
+    void setImageUrl() {
+    }
+
+    @Test
+    void getCapacity() {
+    }
+
+    @Test
+    void setCapacity() {
+    }
+
+    @Test
+    void getLocation() {
+    }
+
+    @Test
+    void setLocation() {
+    }
+
+    @Test
+    void getDimensions() {
+    }
+
+    @Test
+    void setDimensions() {
+    }
+
+    @Test
+    void getVin() {
+    }
+
+    @Test
+    void setVin() {
+    }
+
+
+    private static class TestCarRepository extends CarRepository {
 
 		private final Map<Integer, Car> cars = new HashMap<>();
 
