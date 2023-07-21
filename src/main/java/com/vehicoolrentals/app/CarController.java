@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.Properties;
 
 @Controller
@@ -55,12 +56,17 @@ public class CarController {
         return "layout";
     }
 
+
     @GetMapping("/car_details/{id}")
     public String carDetailsPage(@PathVariable("id") String manufacturerId, Model carModel) {
-        String apiUrl = "https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMakeId/" + manufacturerId + "?format=xml";
+        String apiUrl = "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForManufacturerAndYear/" + manufacturerId + "?year=2014&format=xml";
         String xmlResponse = fetchDataFromApi(apiUrl);
         Car carDetails = parseXmlResponse(xmlResponse);
-        carModel.addAttribute("carDetails", carDetails);
+
+        if (carDetails != null) {
+            carModel.addAttribute("carDetails", carDetails);
+        }
+
         return "car_details";
     }
 
@@ -70,9 +76,23 @@ public class CarController {
     }
 
     private Car parseXmlResponse(String xmlResponse) {
-        // Parse XML response and return a CarDetails object
-        // For simplicity, I'm returning a dummy CarDetails object here
-        return new Car(2021, "Dummy Make", "Dummy Model", 0);
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            InputSource inputSource = new InputSource(new StringReader(xmlResponse));
+            Document document = builder.parse(inputSource);
+
+            String makeName = document.getElementsByTagName("MakeName").item(0).getTextContent();
+            String modelName = document.getElementsByTagName("MakeName").item(1).getTextContent();
+
+            // You can add more fields here and update the Car object accordingly
+            return new Car(2023, makeName, modelName, 25000.00);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception properly in your code
+        }
+
+        return null;
     }
 
     public static class CarData {
