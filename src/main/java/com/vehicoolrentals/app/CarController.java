@@ -54,8 +54,8 @@ public class CarController {
         return "layout";
     }
 
-    @GetMapping("/car_details")
-    public String carDetailsPage(@RequestParam("id") String manufacturerId, Model carModel) {
+    @GetMapping("/car_details/{id}")
+    public String carDetailsPage(@PathVariable("id") String manufacturerId, Model carModel) {
         String apiUrl = "https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMakeId/" + manufacturerId + "?format=xml";
         String xmlResponse = fetchDataFromApi(apiUrl);
         Car carDetails = parseXmlResponse(xmlResponse);
