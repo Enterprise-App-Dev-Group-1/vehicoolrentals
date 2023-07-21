@@ -26,12 +26,12 @@
       </thead>
       <tbody>
       <tr th:each="carDetails : ${rentedCarDetailsList}">
-        <td><a th:href="@{/searchCarDetails/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.Mfr_CommonName}"></a></td>
-        <td><a th:href="@{/searchCarDetails/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.Mfr_ID}"></a></td>
-        <td><a th:href="@{/searchCarDetails/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.Mfr_Name}"></a></td>
-        <td><a th:href="@{/searchCarDetails/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.OtherManufacturerDetails}"></a></td>
-        <td><a th:href="@{/searchCarDetails/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.PostalCode}"></a></td>
-        <td><a th:href="@{/searchCarDetails/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.StateProvince}"></a></td>
+        <td><a th:href="@{/car_details/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.Mfr_CommonName}"></a></td>
+        <td><a th:href="@{/car_details/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.Mfr_ID}"></a></td>
+        <td><a th:href="@{/car_details/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.Mfr_Name}"></a></td>
+        <td><a th:href="@{/car_details/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.OtherManufacturerDetails}"></a></td>
+        <td><a th:href="@{/car_details/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.PostalCode}"></a></td>
+        <td><a th:href="@{/car_details/{id}(id=${carDetails.Mfr_ID})}" th:text="${carDetails.StateProvince}"></a></td>
         <td>
           <span th:each="vehicleType, iter : ${carDetails.VehicleTypes}" th:text="${vehicleType.Name}" th:if="${iter.index} == 0"></span>
           <span th:each="vehicleType, iter : ${carDetails.VehicleTypes}" th:text="${', ' + vehicleType.Name}" th:if="${iter.index} > 0"></span>

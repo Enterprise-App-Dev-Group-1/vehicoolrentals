@@ -11,15 +11,15 @@ public class Car implements ICar {
 
     private final CarApiClient carApiClient;
 
-    private String vim;
+    private String vin; // Changed 'vin' to 'vin'
     private int year;
-    private String carImage;
-    private int passengers;
-    private String carLocation;
-    private String carDimensions;
+    private String imageUrl; 
+    private int capacity; 
+    private String location; 
+    private String dimensions;
     private Date availabilityStart;
     private Date availabilityEnd;
-    private float carPrice;
+    private float price;
 
     public Car(CarApiClient carApiClient, int carId, String dummyMake, String dummyModel, int i) {
         this.carApiClient = carApiClient;
@@ -31,52 +31,112 @@ public class Car implements ICar {
 
     @Override
     public float getCarPrice() {
-        return carPrice;
+        return 0;
     }
 
     @Override
     public void setCarPrice(float carPrice) {
-        this.carPrice = carPrice;
+
     }
 
     @Override
     public String getCarImage() {
-        return carImage;
+        return null;
     }
 
     @Override
     public void setCarImage(String carImage) {
-        this.carImage = carImage;
+
     }
 
     @Override
     public int getPassengers() {
-        return passengers;
+        return 0;
     }
 
     @Override
     public void setPassengers(int passengers) {
-        this.passengers = passengers;
+
     }
 
     @Override
     public String getCarLocation() {
-        return carLocation;
+        return null;
     }
 
     @Override
     public void setCarLocation(String carLocation) {
-        this.carLocation = carLocation;
+
     }
 
     @Override
     public String getCarDimensions() {
-        return carDimensions;
+        return null;
     }
 
     @Override
     public void setCarDimensions(String carDimensions) {
-        this.carDimensions = carDimensions;
+
+    }
+
+    @Override
+    public float getprice() {
+        return 0;
+    }
+
+    @Override
+    public void setprice(float price) {
+
+    }
+
+    @Override
+    public float getPrice() {
+        return price;
+    }
+
+    @Override
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    @Override
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Override
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public int getCapacity() {
+        return capacity;
+    }
+
+    @Override
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String getLocation() {
+        return location;
+    }
+
+    @Override
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @Override
+    public String getDimensions() {
+        return dimensions;
+    }
+
+    @Override
+    public void setDimensions(String dimensions) {
+        this.dimensions = dimensions;
     }
 
     @Override
@@ -104,13 +164,13 @@ public class Car implements ICar {
     }
 
     @Override
-    public String getVim() {
-        return vim;
+    public String getVin() {
+        return vin;
     }
 
     @Override
-    public void setVim(String vim) {
-        this.vim = vim;
+    public void setVin(String vin) {
+        this.vin = vin;
     }
 
     @Override
@@ -127,7 +187,7 @@ public class Car implements ICar {
 
     @Override
     public String getId() {
-        String endpoint = "/vehicles/DecodeVin/" + vim + "?format=json&modelyear=" + year;
+        String endpoint = "/vehicles/DecodeVin/" + vin + "?format=json&modelyear=" + year;
         String response = carApiClient.pingApi(endpoint);
         return parseMakeIdFromJson(response);
     }
@@ -154,12 +214,57 @@ public class Car implements ICar {
         this.year = year;
     }
 
+    // Additional field to store the manufacturer ID (MakeID) obtained from the NHTSA API
+    private String makeId;
+
+    // Method to fetch and set the manufacturer ID (MakeID) from the NHTSA API
+    private void setMakeIdFromNhtsaApi() {
+        try {
+            // Build the API endpoint with the VIN and year
+            String endpoint = "/vehicles/DecodeVin/" + vin + "?format=json&modelyear=" + year;
+            // Make the API call and get the JSON response
+            String response = carApiClient.pingApi(endpoint);
+            // Parse the JSON response to get the MakeID and store it in the makeId field
+            this.makeId = parseMakeIdFromJson(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.makeId = ""; // Set makeId to an empty string in case of an error
+        }
+    }
+
+    // Define the class representing the JSON response structure for the NHTSA API
+// You may need to modify the class to match the actual JSON response structure
+    private static class NhtsaApiResponse {
+        @SerializedName("MakeID")
+        private String makeID;
+
+        @SerializedName("Make")
+        private String make;
+
+        @SerializedName("Model")
+        private String model;
+
+        // Getters for the fields
+
+        public String getMakeID() {
+            return makeID;
+        }
+
+        public String getMake() {
+            return make;
+        }
+
+        public String getModel() {
+            return model;
+        }
+    }
+
+    // Method to parse the JSON response from the NHTSA API and extract the manufacturer ID (MakeID)
     private String parseMakeIdFromJson(String json) {
         try {
             // Use Gson to parse the JSON response and extract the MakeID
-            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
             Gson gson = new Gson();
-            modelResponse response = gson.fromJson(json, modelResponse.class);
+            NhtsaApiResponse response = gson.fromJson(json, NhtsaApiResponse.class);
             return response.getMakeID();
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,12 +272,12 @@ public class Car implements ICar {
         }
     }
 
+    // Method to parse the JSON response from the NHTSA API and extract the manufacturer name (Make)
     private String parseMakeFromJson(String json) {
         try {
             // Use Gson to parse the JSON response and extract the Make
-            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
             Gson gson = new Gson();
-            modelResponse response = gson.fromJson(json, modelResponse.class);
+            NhtsaApiResponse response = gson.fromJson(json, NhtsaApiResponse.class);
             return response.getMake();
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,18 +285,19 @@ public class Car implements ICar {
         }
     }
 
+    // Method to parse the JSON response from the NHTSA API and extract the model name (Model)
     private String parseModelFromJson(String json) {
         try {
             // Use Gson to parse the JSON response and extract the Model
-            // Replace the below parsing logic with the actual Gson parsing based on your JSON response structure
             Gson gson = new Gson();
-            modelResponse response = gson.fromJson(json, modelResponse.class);
+            NhtsaApiResponse response = gson.fromJson(json, NhtsaApiResponse.class);
             return response.getModel();
         } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
     }
+
 
     public void getModelYear() {
     }
@@ -225,4 +331,6 @@ public class Car implements ICar {
             return model;
         }
     }
+
+
 }

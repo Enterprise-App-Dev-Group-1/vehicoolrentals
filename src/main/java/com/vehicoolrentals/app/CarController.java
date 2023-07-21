@@ -4,13 +4,21 @@ import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 @Controller
 public class CarController {
+
     private final CarApiClient carApiClient;
     private final Gson gson;
 
@@ -20,7 +28,7 @@ public class CarController {
     }
 
     @GetMapping("/car")
-    public String carPage(Model carModel) {
+    public String carPage(@RequestParam("vin") String vin, Model carModel) {
         Properties config = new Properties();
         try (InputStream inputStream = CarController.class.getClassLoader().getResourceAsStream("config.properties")) {
             config.load(inputStream);
@@ -31,13 +39,11 @@ public class CarController {
         String apiKey = config.getProperty("api.key");
         carModel.addAttribute("apiKey", apiKey);
 
-        String vim = "1G1YY26U265100001";
-        int year = 0;
-        String endpointAndQueryParams = "vehicles/DecodeVin/" + vim + "?format=json&modelyear=XML" + year;
+        String endpointAndQueryParams = "vehicles/DecodeVin/" + vin + "?format=json";
         String carInfo = carApiClient.pingApi(endpointAndQueryParams);
 
         CarData carData = gson.fromJson(carInfo, CarData.class);
-        year = carData.getYear();
+        int year = carData.getYear();
         String make = carData.getMake();
         String model = carData.getModel();
         double price = carData.getTrims()[0].getMsrp();
@@ -46,6 +52,26 @@ public class CarController {
         carModel.addAttribute("car", car);
 
         return "layout";
+    }
+
+    @GetMapping("/car_details")
+    public String carDetailsPage(@RequestParam("id") String manufacturerId, Model carModel) {
+        String apiUrl = "https://vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMakeId/" + manufacturerId + "?format=xml";
+        String xmlResponse = fetchDataFromApi(apiUrl);
+        Car carDetails = parseXmlResponse(xmlResponse);
+        carModel.addAttribute("carDetails", carDetails);
+        return "car_details";
+    }
+
+    private String fetchDataFromApi(String apiUrl) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(apiUrl, String.class);
+    }
+
+    private Car parseXmlResponse(String xmlResponse) {
+        // Parse XML response and return a CarDetails object
+        // For simplicity, I'm returning a dummy CarDetails object here
+        return new Car(2021, "Dummy Make", "Dummy Model", 0);
     }
 
     public static class CarData {
