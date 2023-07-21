@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -44,12 +43,11 @@ public class CarController {
         String endpointAndQueryParams = "vehicles/DecodeVin/" + vin + "?format=json";
         String carInfo = carApiClient.pingApi(endpointAndQueryParams);
 
-        CarData carData = gson.fromJson(carInfo, CarData.class);
+        Car carData = gson.fromJson(carInfo, Car.class);
         int year = carData.getYear();
         String make = carData.getMake();
         String model = carData.getModel();
-        double price = carData.getTrims()[0].getMsrp();
-
+        double price = carData.getPrice();
         Car car = new Car(year, make, model, price);
         carModel.addAttribute("car", car);
 
@@ -85,58 +83,29 @@ public class CarController {
             String makeName = document.getElementsByTagName("MakeName").item(0).getTextContent();
             String modelName = document.getElementsByTagName("MakeName").item(1).getTextContent();
 
-            // You can add more fields here and update the Car object accordingly
             return new Car(2023, makeName, modelName, 25000.00);
         } catch (Exception e) {
             e.printStackTrace();
-            // Handle the exception properly in your code
         }
 
         return null;
     }
 
-    public static class CarData {
-        private int year;
-        private String make;
-        private String model;
-        private TrimData[] trims;
-
-        public int getYear() {
-            return year;
-        }
-
-        public String getMake() {
-            return make;
-        }
-
-        public String getModel() {
-            return model;
-        }
-
-        public TrimData[] getTrims() {
-            return trims;
-        }
-    }
-
-    public static class TrimData {
-        private double msrp;
-
-        public double getMsrp() {
-            return msrp;
-        }
-    }
-
-    public static class Car {
+    public class Car {
         private int year;
         private String make;
         private String model;
         private double price;
+        private int makeId;
+        private String manufacturerName;
 
         public Car(int year, String make, String model, double price) {
             this.year = year;
             this.make = make;
             this.model = model;
             this.price = price;
+            this.makeId = makeId;
+            this.manufacturerName = manufacturerName;
         }
 
         public int getYear() {
@@ -151,8 +120,23 @@ public class CarController {
             return model;
         }
 
+        public double[] getTrims() {
+            return new double[0];
+        }
+
         public double getPrice() {
-            return price;
+            return 0;
+        }
+        @Override
+        public String toString() {
+            return "Car{" +
+                    "year=" + year +
+                    ", make='" + make + '\'' +
+                    ", model='" + model + '\'' +
+                    ", price=" + price +
+                    ", makeId=" + makeId +
+                    ", manufacturerName='" + manufacturerName + '\'' +
+                    '}';
         }
     }
 }
