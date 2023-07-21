@@ -10,10 +10,26 @@
 <div th:replace="layout :: header"></div>
 
 <div class="container mt-5">
-  <h1>Car Details</h1>
-  <p>Make: <span th:text="${carDetails.make}">[Make]</span></p>
-  <p>Model: <span th:text="${carDetails.model}">[Model]</span></p>
-  <p>Year: <span th:text="${carDetails.year}">[Year]</span></p>
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Car Details</h1>
+      <p>Make: <span th:text="${carDetails.make}">[Make]</span></p>
+      <p>Model: <span th:text="${carDetails.model}">[Model]</span></p>
+      <p>Year: <span th:text="${carDetails.year}">[Year]</span></p>
+
+      <!-- Rent button placeholder with logic comments (centered) -->
+      <div class="text-center">
+        <form th:action="@{/rent}" method="post">
+          <!-- Add any required form fields -->
+          <button type="submit" class="btn btn-primary">Rent Car</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6 text-center">
+      <!-- Image placeholder (right-aligned) -->
+      <img src="/path/to/car-image.jpg" alt="Car Image" width="300" height="200" />
+    </div>
+  </div>
 </div>
 
 <!-- Include the layout template - footer section -->
