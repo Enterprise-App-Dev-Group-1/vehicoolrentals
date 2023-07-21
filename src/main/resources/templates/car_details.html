@@ -10,48 +10,10 @@
 <div th:replace="layout :: header"></div>
 
 <div class="container mt-5">
-  <h1 class="text-center">Car Details</h1>
-  <div class="d-flex justify-content-center">
-    <table class="table table-striped mt-3">
-      <tbody>
-      <tr>
-        <td>Manufacturer Common Name:</td>
-        <td th:text="${carDetails.Mfr_CommonName}"></td>
-      </tr>
-      <tr>
-        <td>Manufacturer ID:</td>
-        <td th:text="${carDetails.Mfr_ID}"></td>
-      </tr>
-      <tr>
-        <td>Manufacturer Name:</td>
-        <td th:text="${carDetails.Mfr_Name}"></td>
-      </tr>
-      <tr>
-        <td>Other Manufacturer Details:</td>
-        <td th:text="${carDetails.OtherManufacturerDetails}"></td>
-      </tr>
-      <tr>
-        <td>Postal Code:</td>
-        <td th:text="${carDetails.PostalCode}"></td>
-      </tr>
-      <tr>
-        <td>State Province:</td>
-        <td th:text="${carDetails.StateProvince}"></td>
-      </tr>
-      <tr>
-        <td>Vehicle Types:</td>
-        <td>
-            <span th:each="vehicleType : ${carDetails.VehicleTypes}">
-              <a th:href="@{'vpic.nhtsa.dot.gov/api/vehicles/GetVehicleTypesForMakeId/' + vehicleType.VehicleTypeId}">
-                <span th:text="${vehicleType.VehicleTypeName}"></span>
-              </a>
-              <span th:if="${!#lists.last}">, </span>
-            </span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <h1>Car Details</h1>
+  <p>Make: <span th:text="${carDetails.make}">[Make]</span></p>
+  <p>Model: <span th:text="${carDetails.model}">[Model]</span></p>
+  <p>Year: <span th:text="${carDetails.year}">[Year]</span></p>
 </div>
 
 <!-- Include the layout template - footer section -->

@@ -139,7 +139,7 @@ public class SearchController {
         String jsonData = carApiClient.pingApi("vehicles/getmanufacturerdetails/" + vehicleName + "?format=json");
 
         // Parse the JSON data and extract the required information
-        List<RentedCarDetails> rentedCarDetailsList = parseJsonData(jsonData);
+        List<RentedCarDetails> rentedCarDetailsList = parseSearchResultsJsonData(jsonData);
 
         // Pass the list of rented car details to the Thymeleaf template
         model.addAttribute("rentedCarDetailsList", rentedCarDetailsList);
@@ -184,7 +184,7 @@ public class SearchController {
         return "search_result";
     }
 
-    private List<RentedCarDetails> parseJsonData(String jsonData) {
+    private List<RentedCarDetails> parseSearchResultsJsonData(String jsonData) {
         List<RentedCarDetails> rentedCarDetailsList = new ArrayList<>();
 
         try {
