@@ -39,13 +39,8 @@
     var uiConfig = {
         signInSuccessUrl: '/', // Redirect to home page after successful login
         signInOptions: [
-            // Add the login methods you want to support
             firebase.auth.EmailAuthProvider.PROVIDER_ID, // Email/Password login
             firebase.auth.GoogleAuthProvider.PROVIDER_ID, // Google login
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID, // Facebook login
-            firebase.auth.TwitterAuthProvider.PROVIDER_ID, // Twitter login
-            firebase.auth.GithubAuthProvider.PROVIDER_ID // GitHub login
-            // Add more providers if needed
         ],
         tosUrl: '<YOUR_TOS_URL>',
         privacyPolicyUrl: '<YOUR_PRIVACY_POLICY_URL>'
