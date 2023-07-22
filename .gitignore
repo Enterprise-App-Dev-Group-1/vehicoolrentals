@@ -677,3 +677,16 @@ FodyWeavers.xsd
 # Gradle
 /.gradle/
 /build/
+
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+firebase-debug.log
+resources/firebase-adminsdk.json
+```
