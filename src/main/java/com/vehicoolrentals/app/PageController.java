@@ -46,4 +46,14 @@ public class PageController {
     public String profile() {
         return "rentals";
     }
+
+    /**
+     * Handles the request to the "/profile" URL and returns the rentals page.
+     *
+     * @return the name of the view to render
+     */
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }
