@@ -44,12 +44,14 @@ public class CarController {
         String carInfo = carApiClient.pingApi(endpointAndQueryParams);
 
         Car carData = gson.fromJson(carInfo, Car.class);
-        int year = carData.getYear();
-        String make = carData.getMake();
-        String model = carData.getModel();
-        double price = carData.getPrice();
-        Car car = new Car(year, make, model, price);
-        carModel.addAttribute("car", car);
+
+        float estimatedPrice = 0;
+        // Estimate the price based on the make and model
+        estimatedPrice = (float) carData.getPrice(estimatedPrice, carData.getMake(), carData.getModel());
+
+        carData.getPrice(estimatedPrice, carData.getMake(), carData.getModel());
+
+        carModel.addAttribute("car", carData);
 
         return "layout";
     }
@@ -108,8 +110,9 @@ public class CarController {
             this.manufacturerName = manufacturerName;
         }
 
-        public int getYear() {
-            return year;
+        public double getPrice() {
+            getPrice(0, "", "");
+            return price;
         }
 
         public String getMake() {
@@ -120,13 +123,79 @@ public class CarController {
             return model;
         }
 
-        public double[] getTrims() {
-            return new double[0];
+        public int getYear() {
+            return year;
         }
 
-        public double getPrice() {
-            return 0;
+        // Method to get the price based on make, model, and year
+        public double getPrice(float estimatedPrice, String make, String model) {
+            // Assign base price for each make and model (these are arbitrary values and can be adjusted)
+            float basePrice = 15000.0f; // Base price for most cars
+
+            // Make and model specific price estimations
+            if (make.equalsIgnoreCase("Toyota")) {
+                if (model.equalsIgnoreCase("Corolla")) {
+                    basePrice = 18000.0f;
+                } else if (model.equalsIgnoreCase("Camry")) {
+                    basePrice = 20000.0f;
+                } else if (model.equalsIgnoreCase("RAV4")) {
+                    basePrice = 22000.0f;
+                } else if (model.equalsIgnoreCase("Highlander")) {
+                    basePrice = 25000.0f;
+                } else if (model.equalsIgnoreCase("Sienna")) {
+                    basePrice = 28000.0f;
+                } // Add more Toyota models and their respective base prices
+            } else if (make.equalsIgnoreCase("Honda")) {
+                if (model.equalsIgnoreCase("Civic")) {
+                    basePrice = 17000.0f;
+                } else if (model.equalsIgnoreCase("Accord")) {
+                    basePrice = 19000.0f;
+                } else if (model.equalsIgnoreCase("CR-V")) {
+                    basePrice = 21000.0f;
+                } else if (model.equalsIgnoreCase("Pilot")) {
+                    basePrice = 24000.0f;
+                } else if (model.equalsIgnoreCase("Odyssey")) {
+                    basePrice = 26000.0f;
+                } // Add more Honda models and their respective base prices
+            } else if (make.equalsIgnoreCase("Ford")) {
+                if (model.equalsIgnoreCase("Focus")) {
+                    basePrice = 16000.0f;
+                } else if (model.equalsIgnoreCase("Fusion")) {
+                    basePrice = 18000.0f;
+                } else if (model.equalsIgnoreCase("Escape")) {
+                    basePrice = 20000.0f;
+                } else if (model.equalsIgnoreCase("Explorer")) {
+                    basePrice = 23000.0f;
+                } else if (model.equalsIgnoreCase("Expedition")) {
+                    basePrice = 26000.0f;
+                } // Add more Ford models and their respective base prices
+            } else if (make.equalsIgnoreCase("Chevrolet")) {
+                if (model.equalsIgnoreCase("Malibu")) {
+                    basePrice = 19000.0f;
+                } else if (model.equalsIgnoreCase("Equinox")) {
+                    basePrice = 21000.0f;
+                } else if (model.equalsIgnoreCase("Silverado")) {
+                    basePrice = 25000.0f;
+                } else if (model.equalsIgnoreCase("Tahoe")) {
+                    basePrice = 28000.0f;
+                } else if (model.equalsIgnoreCase("Suburban")) {
+                    basePrice = 30000.0f;
+                } // Add more Chevrolet models and their respective base prices
+            } // Add more make and model specific price estimations for other car makes
+
+            // Adjust price based on the year (assuming a linear depreciation model)
+            int currentYear = java.time.Year.now().getValue();
+            com.vehicoolrentals.app.domain.Car carData = new com.vehicoolrentals.app.domain.Car(carApiClient, 0, make, model, 0);
+            int age = currentYear - carData.getYear();
+            if (age > 0) {
+                // Apply a depreciation factor of 5% per year for older cars
+                float depreciationFactor = 1.0f - (0.05f * age);
+                return basePrice * depreciationFactor;
+            } else {
+                return basePrice;
+            }
         }
+
         @Override
         public String toString() {
             return "Car{" +

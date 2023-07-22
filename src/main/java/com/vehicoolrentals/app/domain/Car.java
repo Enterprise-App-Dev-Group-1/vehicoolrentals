@@ -75,6 +75,7 @@ public class Car implements ICar {
 
     }
 
+
     @Override
     public String getCarDimensions() {
         return null;
@@ -83,79 +84,6 @@ public class Car implements ICar {
     @Override
     public void setCarDimensions(String carDimensions) {
 
-    }
-
-    @Override
-    // Method to get the price based on make, model, and year
-    public float getPrice(String make, String model, int year) {
-        // Assign base price for each make and model (these are arbitrary values and can be adjusted)
-        float basePrice = 15000.0f; // Base price for most cars
-
-        // Add more make and model specific price estimations as needed
-        // I COULD NOT for the life of me find a suitable yet FREE API for
-        // finding the price, so I regret to present
-        // "YandreDev if-else statement hell"
-        // College students (me) are broke
-        if (make.equalsIgnoreCase("Toyota")) {
-            if (model.equalsIgnoreCase("Corolla")) {
-                basePrice = 18000.0f;
-            } else if (model.equalsIgnoreCase("Camry")) {
-                basePrice = 20000.0f;
-            } else if (model.equalsIgnoreCase("RAV4")) {
-                basePrice = 22000.0f;
-            } else if (model.equalsIgnoreCase("Highlander")) {
-                basePrice = 25000.0f;
-            } else if (model.equalsIgnoreCase("Sienna")) {
-                basePrice = 28000.0f;
-            } // Add more Toyota models and their respective base prices
-        } else if (make.equalsIgnoreCase("Honda")) {
-            if (model.equalsIgnoreCase("Civic")) {
-                basePrice = 17000.0f;
-            } else if (model.equalsIgnoreCase("Accord")) {
-                basePrice = 19000.0f;
-            } else if (model.equalsIgnoreCase("CR-V")) {
-                basePrice = 21000.0f;
-            } else if (model.equalsIgnoreCase("Pilot")) {
-                basePrice = 24000.0f;
-            } else if (model.equalsIgnoreCase("Odyssey")) {
-                basePrice = 26000.0f;
-            } // Add more Honda models and their respective base prices
-        } else if (make.equalsIgnoreCase("Ford")) {
-            if (model.equalsIgnoreCase("Focus")) {
-                basePrice = 16000.0f;
-            } else if (model.equalsIgnoreCase("Fusion")) {
-                basePrice = 18000.0f;
-            } else if (model.equalsIgnoreCase("Escape")) {
-                basePrice = 20000.0f;
-            } else if (model.equalsIgnoreCase("Explorer")) {
-                basePrice = 23000.0f;
-            } else if (model.equalsIgnoreCase("Expedition")) {
-                basePrice = 26000.0f;
-            } // Add more Ford models and their respective base prices
-        } else if (make.equalsIgnoreCase("Chevrolet")) {
-            if (model.equalsIgnoreCase("Malibu")) {
-                basePrice = 19000.0f;
-            } else if (model.equalsIgnoreCase("Equinox")) {
-                basePrice = 21000.0f;
-            } else if (model.equalsIgnoreCase("Silverado")) {
-                basePrice = 25000.0f;
-            } else if (model.equalsIgnoreCase("Tahoe")) {
-                basePrice = 28000.0f;
-            } else if (model.equalsIgnoreCase("Suburban")) {
-                basePrice = 30000.0f;
-            } // Add more Chevrolet models and their respective base prices
-        } // Add more make and model specific price estimations for other car makes
-
-        // Adjust price based on the year (assuming a linear depreciation model)
-        int currentYear = java.time.Year.now().getValue();
-        int age = currentYear - year;
-        if (age > 0) {
-            // Apply a depreciation factor of 5% per year for older cars
-            float depreciationFactor = 1.0f - (0.05f * age);
-            return basePrice * depreciationFactor;
-        } else {
-            return basePrice;
-        }
     }
 
     private float pricePerDay;
@@ -305,6 +233,9 @@ public class Car implements ICar {
         }
     }
 
+    public void setModelYear(int i) {
+    }
+
     // Define the class representing the JSON response structure for the NHTSA API
 // You may need to modify the class to match the actual JSON response structure
     private static class NhtsaApiResponse {
@@ -370,40 +301,5 @@ public class Car implements ICar {
             return "";
         }
     }
-
-
-    public void getModelYear() {
-    }
-
-    public void setModelYear(int i) {
-        getModelYear();
-    }
-
-    // Define the class representing the JSON response structure
-    private static class modelResponse {
-        @SerializedName("MakeID")
-        private String makeID;
-
-        @SerializedName("Make")
-        private String make;
-
-        @SerializedName("Model")
-        private String model;
-
-        // Getters for the fields
-
-        public String getMakeID() {
-            return makeID;
-        }
-
-        public String getMake() {
-            return make;
-        }
-
-        public String getModel() {
-            return model;
-        }
-    }
-
 
 }

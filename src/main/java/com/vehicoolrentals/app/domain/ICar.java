@@ -77,8 +77,6 @@ public interface ICar {
      */
     void setCarDimensions(String carDimensions);
 
-    float getPrice(String make, String model, int year);
-
     void setPrice(float price);
 
     String getImageUrl();
