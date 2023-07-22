@@ -1,54 +1,99 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>My Application</title>
-        <!-- Bootstrap CSS -->
-        <!-- <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" /> -->
-        <!-- Bootswatch Theme CSS -->
-        <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
-    </head>
-    <body class="d-flex flex-column h-100">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" th:href="@{/}"><i class="bi bi-car-front fs-4 text-primary"></i></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" th:href="@{/search}">Search</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/rentals}">My Rentals</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/profile}"><span class="pe-2">Profile</span><i class="bi bi-emoji-smile-fill fs-4 text-info"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
+<head>
+    <title>My Application</title>
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" /> -->
+    <!-- Bootswatch Theme CSS -->
+    <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+</head>
+<body class="d-flex flex-column h-100">
+<!-- Load the Firebase config from JSON file -->
+<script src="firebase-config.json"></script>
 
-        <main class="flex-shrink-0">
-            <!-- Main content goes here -->
-            <section th:insert="${content}">
-                <!-- Default content goes here -->
-            </section>
-        </main>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.2/firebase-messaging.js"></script>
+<!-- End of Firebase SDK -->
 
-        <footer class="footer mt-auto py-3 bg-light">
-            <div class="row">
-                <div class="col text-center text-secondary">
-                    <p>&copy; 2023 Vehi-Cool Rentals. All rights reserved.</p>
-                </div>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}"><i class="bi bi-car-front fs-4 text-primary"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/search}">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/rentals}">My Rentals</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/profile}"><span class="pe-2">Profile</span><i class="bi bi-emoji-smile-fill fs-4 text-info"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="loginLink" th:href="@{/login}">
+                            <!-- This link will be dynamically updated to Login/Logoff -->
+                            <!-- Initial value for the link when the page loads -->
+                            <span class="pe-2">Login</span><i class="bi bi-box-arrow-in-right fs-4 text-info"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </footer>
+        </div>
+    </nav>
+</header>
 
-        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-    </body>
+<main class="flex-shrink-0">
+    <!-- Main content goes here -->
+    <section th:insert="${content}">
+        <!-- Default content goes here -->
+    </section>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="row">
+        <div class="col text-center text-secondary">
+            <p>&copy; 2023 Vehi-Cool Rentals. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Function to check if the user is logged in using Firebase Authentication
+    function isLoggedIn() {
+        return new Promise((resolve, reject) => {
+            firebase.auth().onAuthStateChanged((user) => {
+                resolve(!!user);
+            });
+        });
+    }
+
+    // Function to update the "Login" link to "Logoff" based on user login status
+    async function updateLoginLink() {
+        var loginLink = document.getElementById("loginLink");
+
+        if (await isLoggedIn()) {
+            loginLink.innerHTML = '<span class="pe-2">Logoff</span><i class="bi bi-box-arrow-right fs-4 text-info"></i>';
+            loginLink.href = '/logout'; // Update the href attribute to point to the logout URL
+        } else {
+            loginLink.innerHTML = '<span class="pe-2">Login</span><i class="bi bi-box-arrow-in-right fs-4 text-info"></i>';
+            loginLink.href = '/login'; // Update the href attribute to point to the login URL
+        }
+    }
+
+    // Call the function once to initialize the link text
+    updateLoginLink();
+</script>
+
+<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+</body>
 </html>

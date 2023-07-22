@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Details</title>
+  <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+</head>
+<body>
+<!-- Include the layout template - header section -->
+<div th:replace="layout :: header"></div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Car Details</h1>
+      <p>Manufacturer ID: <span th:text="${id}">[Manufacturer ID]</span></p>
+      <p>Make: <span th:text="${carDetails.getMake()}">[Make]</span></p>
+      <p>Model: <span th:text="${carDetails.getModel()}">[Model]</span></p>
+      <p>Year: <span th:text="${carDetails.getYear()}">[Year]</span></p>
+      <p>Price: <span th:text="${carDetails.getPrice()}">[Price]</span></p>
+      <!-- Rent button placeholder with logic comments (centered) -->
+      <div class="text-center">
+        <form th:action="@{/rentals/${id}}" method="post">
+          <!-- Add any required form fields -->
+          <button type="submit" class="btn btn-primary">Rent Car</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6 text-center">
+      <!-- Image placeholder (right-aligned) -->
+      <img src="/path/to/car-image.jpg" alt="Car Image" width="300" height="200" />
+    </div>
+  </div>
+</div>
+
+<!-- Include the layout template - footer section -->
+<div th:replace="layout :: footer"></div>
+</body>
+</html>

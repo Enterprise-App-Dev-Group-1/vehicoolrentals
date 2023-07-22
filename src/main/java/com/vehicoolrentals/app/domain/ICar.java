@@ -77,6 +77,24 @@ public interface ICar {
      */
     void setCarDimensions(String carDimensions);
 
+    void setPrice(float price);
+
+    String getImageUrl();
+
+    void setImageUrl(String imageUrl);
+
+    int getCapacity();
+
+    void setCapacity(int capacity);
+
+    String getLocation();
+
+    void setLocation(String location);
+
+    String getDimensions();
+
+    void setDimensions(String dimensions);
+
     /**
      * Retrieves the start date of the car's availability.
      *
@@ -109,6 +127,8 @@ public interface ICar {
      * Retrieves the ID of the car.
      *
      * @return the ID of the car
+     * @throws IOException          if an I/O error occurs while fetching the ID
+     * @throws InterruptedException if the operation is interrupted while fetching the ID
      */
     String getId() throws IOException, InterruptedException;
 
@@ -126,19 +146,23 @@ public interface ICar {
      * @throws IOException          if an I/O error occurs while fetching the VIN
      * @throws InterruptedException if the operation is interrupted while fetching the VIN
      */
-    String getVim() throws IOException, InterruptedException;
+    String getVin() throws IOException, InterruptedException;
 
     /**
      * Sets the Vehicle Identification Number (VIN) of the car.
      *
-     * @param vim the Vehicle Identification Number (VIN) of the car to set
+     * @param vin the Vehicle Identification Number (VIN) of the car to set
+     * @throws IOException          if an I/O error occurs while setting the VIN
+     * @throws InterruptedException if the operation is interrupted while setting the VIN
      */
-    void setVim(String vim) throws IOException, InterruptedException;
+    void setVin(String vin) throws IOException, InterruptedException;
 
     /**
      * Retrieves the make of the car.
      *
      * @return the make of the car
+     * @throws IOException          if an I/O error occurs while fetching the make
+     * @throws InterruptedException if the operation is interrupted while fetching the make
      */
     String getMake() throws IOException, InterruptedException;
 
@@ -146,6 +170,8 @@ public interface ICar {
      * Sets the make of the car.
      *
      * @param make the make of the car to set
+     * @throws IOException          if an I/O error occurs while setting the make
+     * @throws InterruptedException if the operation is interrupted while setting the make
      */
     void setMake(String make) throws IOException, InterruptedException;
 
@@ -153,6 +179,8 @@ public interface ICar {
      * Retrieves the model of the car.
      *
      * @return the model of the car
+     * @throws IOException          if an I/O error occurs while fetching the model
+     * @throws InterruptedException if the operation is interrupted while fetching the model
      */
     String getModel() throws IOException, InterruptedException;
 
@@ -160,6 +188,8 @@ public interface ICar {
      * Sets the model of the car.
      *
      * @param model the model of the car to set
+     * @throws IOException          if an I/O error occurs while setting the model
+     * @throws InterruptedException if the operation is interrupted while setting the model
      */
     void setModel(String model) throws IOException, InterruptedException;
 
@@ -167,6 +197,8 @@ public interface ICar {
      * Retrieves the year of the car.
      *
      * @return the year of the car
+     * @throws IOException          if an I/O error occurs while fetching the year
+     * @throws InterruptedException if the operation is interrupted while fetching the year
      */
     int getYear() throws IOException, InterruptedException;
 
@@ -174,6 +206,8 @@ public interface ICar {
      * Sets the year of the car.
      *
      * @param year the year of the car to set
+     * @throws IOException          if an I/O error occurs while setting the year
+     * @throws InterruptedException if the operation is interrupted while setting the year
      */
     void setYear(int year) throws IOException, InterruptedException;
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Details Not Found</title>
+    <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+</head>
+<body>
+<!-- Include the layout template - header section -->
+<div th:replace="layout :: header"></div>
+
+<div class="container mt-5">
+    <h1 class="text-center">Car Details Not Found</h1>
+    <div class="d-flex justify-content-center">
+        <p class="text-center">Sorry, the car details for the given manufacturer ID were not found.</p>
+    </div>
+</div>
+
+<!-- Include the layout template - footer section -->
+<div th:replace="layout :: footer"></div>
+</body>
+</html>

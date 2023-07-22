@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+</head>
+<body>
+<h1>Login Page</h1>
+
+<!-- FirebaseUI container -->
+<div id="firebaseui-auth-container"></div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+<!-- End of Firebase SDK -->
+
+<!-- FirebaseUI -->
+<script src="https://www.gstatic.com/firebasejs/ui/5.0.0/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/5.0.0/firebase-ui-auth.css" />
+<!-- End of FirebaseUI -->
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCLDsRN-RA27xXAGc4pSWNuTijd__R29l8",
+        authDomain: "vehicool-rentals.firebaseapp.com",
+        databaseURL: "https://vehicool-rentals.firebaseio.com",
+        projectId: "vehicool-rentals",
+        storageBucket: "vehicool-rentals.appspot.com",
+        appId: "vehicool-rentals",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // FirebaseUI configuration
+    var uiConfig = {
+        signInSuccessUrl: '/', // Redirect to home page after successful login
+        signInOptions: [
+            firebase.auth.EmailAuthProvider.PROVIDER_ID, // Email/Password login
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID, // Google login
+        ],
+        tosUrl: '<YOUR_TOS_URL>',
+        privacyPolicyUrl: '<YOUR_PRIVACY_POLICY_URL>'
+    };
+
+    // Initialize FirebaseUI
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // Start the FirebaseUI login flow
+    ui.start('#firebaseui-auth-container', uiConfig);
+</script>
+
+</body>
+</html>

@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <title>Search Results</title>
   <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+  <style>
+    /* CSS for the highlight effect on mouse hover */
+    tr:hover {
+      background-color: #f2f2f2;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 <!-- Include the layout template - header section -->
@@ -25,7 +32,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="carDetails : ${rentedCarDetailsList}">
+      <tr th:each="carDetails : ${rentedCarDetailsList}" th:data-id="${carDetails.Mfr_ID}">
         <td th:text="${carDetails.Mfr_CommonName}"></td>
         <td th:text="${carDetails.Mfr_ID}"></td>
         <td th:text="${carDetails.Mfr_Name}"></td>
@@ -44,5 +51,21 @@
 
 <!-- Include the layout template - footer section -->
 <div th:replace="layout :: footer"></div>
+
+<!-- JavaScript to handle row click events -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const rows = document.querySelectorAll("tbody tr");
+    rows.forEach(function (row) {
+      row.addEventListener("click", function () {
+        // Get the manufacturer ID from the data-id attribute of the clicked row
+        const manufacturerId = this.getAttribute("data-id");
+
+        // Redirect to the car details page with the manufacturer ID
+        window.location.href = "/car_details/" + manufacturerId;
+      });
+    });
+  });
+</script>
 </body>
 </html>
