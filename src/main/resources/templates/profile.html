@@ -1,73 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Profile</title>
-        <style>
-            .fakeimg {
-             height: 200px;
-             background: #aaa;
-             }
-        </style>
-    </head>
-    <body>
-        <div class="container text-center pt-5">
-            <h1>Profile Page</h1>
-            <p th:text="${message}"></p>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <style>
+        .fakeimg {
+            height: 200px;
+            background: #aaa;
+        }
+    </style>
+</head>
+<body>
+<div class="container text-center pt-5">
+    <h1>Profile Page</h1>
 
-
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h2>Profile Picture</h2>
-                        <div class="fakeimg">Fake Image</div>
-                        <hr class="d-sm-none">
-                    </div>
-
-                    <div class="col-sm-8">
-
-                        <div class="inputs-group mb-3">
-                            <span class="input-group-text" id="name">Name</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-default">
-                        </div>
-                        <div class="inputs-group mb-3">
-                            <span class="input-group-text" id="email">Email</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-default">
-                        </div>
-                        <div class="inputs-group mb-3">
-                            <span class="input-group-text" id="phone-number">Phone Number</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-default">
-                        </div>
-
-                        <button type="button" class="btn btn-primary" id="savebutton">Save</button>
-
-                    </div>
-
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-4">
+                <h2>Profile Picture</h2>
+                <div class="fakeimg">
+                    <img th:src="${profilePicUrl}" alt="Profile Picture">
                 </div>
+                <hr class="d-sm-none">
+            </div>
+
+            <div class="col-sm-8">
+                <div class="inputs-group mb-3">
+                    <span class="input-group-text" id="name">Name</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-default" th:value="${name}" readonly>
+                </div>
+                <div class="inputs-group mb-3">
+                    <span class="input-group-text" id="email">Email</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-default" th:value="${email}" readonly>
+                </div>
+
+                <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+                <button type="button" class="btn btn-primary" id="editButton">Edit</button>
 
             </div>
         </div>
+    </div>
+</div>
 
-    <script>
-        var savebutton = document.getElementById('savebutton');
-        var readonly = true;
-        var inputs = document.querySelectorAll('input[type="text"]');
-        savebutton.addEventListener('click',function(){
+<script>
+    var editButton = document.getElementById('editButton');
+    var readonly = true;
+    var inputs = document.querySelectorAll('input[type="text"]');
+    editButton.addEventListener('click',function(){
 
-            for (var i=0; i<inputs.length; i++) {
-                inputs[i].toggleAttribute('readonly');
-            };
+        for (var i=0; i<inputs.length; i++) {
+            inputs[i].toggleAttribute('readonly');
+        }
 
-            if (savebutton.innerHTML == "Save") {
-                savebutton.innerHTML = "Edit";
-            } else {
-                savebutton.innerHTML = "Save";
-            }
+        readonly = !readonly;
 
-        });
-    </script>
-    </body>
+        if (readonly) {
+            editButton.innerHTML = "Edit";
+        } else {
+            editButton.innerHTML = "Save";
+        }
+    });
+</script>
+</body>
 </html>
