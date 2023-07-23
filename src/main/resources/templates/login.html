@@ -5,6 +5,8 @@
     <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
 </head>
 <body>
+<!-- Include the layout template - header section -->
+<div th:replace="layout :: header"></div>
 <h1>Login Page</h1>
 
 <!-- FirebaseUI container -->
@@ -53,4 +55,6 @@
 </script>
 
 </body>
+<!-- Include the layout template - footer section -->
+<div th:replace="layout :: footer"></div>
 </html>

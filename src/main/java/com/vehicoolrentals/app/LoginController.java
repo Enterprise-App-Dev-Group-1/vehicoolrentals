@@ -22,4 +22,11 @@ public class LoginController {
             return "login"; // Return to the login page with an error message
         }
     }
+
+    @GetMapping("/logout")
+    public String logout() {
+        // Implement your logout logic here, such as clearing the session or Firebase authentication state.
+        // For simplicity, we'll just redirect to the login page.
+        return "redirect:/login";
+    }
 }

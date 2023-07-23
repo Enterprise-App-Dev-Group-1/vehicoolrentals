@@ -3,6 +3,7 @@ package com.vehicoolrentals.app;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import com.vehicoolrentals.app.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,33 +12,55 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProfileController {
 
     @GetMapping("/profile")
-    public String profilePage(Model model) throws FirebaseAuthException {
-        // Get the authenticated user from Firebase Authentication
-        UserRecord user = FirebaseAuth.getInstance().getUser(FirebaseUserController.getUid());
+    public String profilePage(Model model) {
+        String uid = "1234567890"; // Replace this with the actual UID you want to check
 
-        if (user != null) {
-            // If the user is authenticated, retrieve user information
-            String uid = user.getUid();
-            String email = user.getEmail();
-            String name = user.getDisplayName();
-            String profilePicUrl = user.getPhotoUrl();
-            String phoneNumber = user.getPhoneNumber();
-            // Add any other user information you want to display
+        try {
+            User userData;
+            if ("1234567890".equals(uid)) {
+                // If UID is the specific value, show default data
+                userData = getDefaultProfileData();
+            } else {
+                // Otherwise, fetch data from Firebase
+                userData = fetchUserDataFromFirebase(uid);
+            }
 
-            // Pass the user information to the view
-            model.addAttribute("uid", uid);
-            model.addAttribute("email", email);
-            model.addAttribute("name", name);
-            model.addAttribute("profilePicUrl", profilePicUrl);
-            model.addAttribute("phoneNumber", phoneNumber);
-        } else {
-            // If the user is not authenticated, handle the case accordingly
-            model.addAttribute("errorMessage", "You must be logged in to view this page.");
+            // Add the user data to the model to be used in the Thymeleaf template
+            model.addAttribute("userData", userData);
+
+            // Return the name of the Thymeleaf template (profile.html)
+            return "profile";
+        } catch (FirebaseAuthException e) {
+            // Handle FirebaseAuthException if necessary
+            // You can add an error message to the model and return an error template
+            model.addAttribute("errorMessage", "Error fetching user data from Firebase");
+            return "error";
         }
+    }
 
-        model.addAttribute("content", "profile");
-        // You can add any other attributes you need for the profile page
+    // Replace this method with your actual logic to fetch data from Firebase
+    private User fetchUserDataFromFirebase(String uid) throws FirebaseAuthException {
+        UserRecord user = FirebaseAuth.getInstance().getUser(uid);
 
-        return "layout";
+        User userData = new User();
+        userData.setId(Integer.parseInt(user.getUid()));
+        userData.setName(user.getDisplayName());
+        userData.setEmail(user.getEmail());
+        userData.setPhoneNumber(user.getPhoneNumber());
+        userData.setProfilePicture(user.getPhotoUrl());
+        // Add other values as needed
+        return userData;
+    }
+
+    // Method to return default profile data when the UID is a specific value
+    private User getDefaultProfileData() {
+        User defaultData = new User();
+        defaultData.setId(1);
+        defaultData.setName("John Doe");
+        defaultData.setEmail("john.doe@example.com");
+        defaultData.setPhoneNumber("+1234567890");
+        defaultData.setProfilePicture("https://secure.gravatar.com/avatar/c89b2bb92df91508e14172097a5e17da?s=480&r=pg&d=https%3A%2F%2Fssl.gstatic.com%2Fs2%2Fprofiles%2Fimages%2Fsilhouette80.png");
+        // Add other default values as needed
+        return defaultData;
     }
 }
