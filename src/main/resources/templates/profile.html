@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
     <title>Profile</title>
+
     <style>
         .fakeimg {
             width: 300px;
@@ -11,9 +13,30 @@
             background-size: cover;
             background-position: center;
         }
+
+        /* Additional CSS styling for inputs and button */
+        .inputs-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .inputs-group .input-group-text {
+            min-width: 150px;
+        }
+
+        .inputs-group input[type="text"] {
+            flex: 1;
+        }
+
+        #editButton {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
+<!-- Include the layout template - header section -->
+<div th:replace="layout :: header"></div>
 <div class="container text-center pt-5">
     <h1>Profile Page</h1>
 
@@ -21,7 +44,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <h2>Profile Picture</h2>
-                <div class="fakeimg" th:style="'background-image: url(' + ${profilePicUrl} + ')'"></div>
+                <div class="fakeimg" th:style="'background-image: url(' + ${userData.profilePicture} + ')'"></div>
                 <hr class="d-sm-none">
             </div>
 
@@ -29,17 +52,17 @@
                 <div class="inputs-group mb-3">
                     <span class="input-group-text" id="name">Name</span>
                     <input type="text" class="form-control" aria-label="Sizing example input"
-                           aria-describedby="inputGroup-sizing-default" th:value="${name}" readonly>
+                           aria-describedby="inputGroup-sizing-default" th:value="${userData.name}" readonly>
                 </div>
                 <div class="inputs-group mb-3">
                     <span class="input-group-text" id="email">Email</span>
                     <input type="text" class="form-control" aria-label="Sizing example input"
-                           aria-describedby="inputGroup-sizing-default" th:value="${email}" readonly>
+                           aria-describedby="inputGroup-sizing-default" th:value="${userData.email}" readonly>
                 </div>
                 <div class="inputs-group mb-3">
                     <span class="input-group-text" id="phone-number">Phone Number</span>
                     <input type="text" class="form-control" aria-label="Sizing example input"
-                           aria-describedby="inputGroup-sizing-default" th:value="${phoneNumber}" readonly>
+                           aria-describedby="inputGroup-sizing-default" th:value="${userData.phoneNumber}" readonly>
                 </div>
 
                 <button type="button" class="btn btn-primary" id="editButton">Edit</button>
@@ -67,6 +90,22 @@
             editButton.innerHTML = "Save";
         }
     });
+
+    function getUidFromServer() {
+        return undefined;
+    }
+
+    // Get the user ID (UID) from the server-side (replace "getUidFromServer()" with the actual function call to the server-side to retrieve the UID)
+    var uid = getUidFromServer();
+
+    // Check if the UID is equal to "1234567890"
+    if (uid === "1234567890") {
+        // Redirect to the login page (Replace "login-page-url" with the actual login page URL)
+        console.log("Redirecting to the login page...");
+        window.location.href = "login";
+    }
 </script>
+<!-- Include the layout template - footer section -->
+<div th:replace="layout :: footer"></div>
 </body>
 </html>

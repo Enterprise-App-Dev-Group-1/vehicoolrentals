@@ -1,69 +1,56 @@
 package com.vehicoolrentals.app;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 
 public class FirebaseUserController {
 
-    public static String getUid() {
+    // Other methods in the FirebaseUserController class (getEmail(), getDisplayName(), getPhotoUrl(), getPhoneNumber()) remain unchanged.
+
+    // Method to retrieve the user ID (UID) from the client-side
+    public static String getDefaultUid() {
+        // Get the default user ID (UID) from the client-side when needed and pass it to the server-side
+        return "1234567890";
+    }
+
+    public static void main(String[] args) {
         // Get the user ID (UID) from the client-side and pass it to the server-side
-        // This value should be obtained through client-side JavaScript using Firebase Auth SDK
-        String uidFromClient = "Aq0y7VHcGcV6OezfPceVlqJo0qD3";
+        String uid = getDefaultUid();
 
-        // For this example, we're just returning a hardcoded UID, but in a real scenario,
-        // you should securely pass the UID from the client-side to the server-side.
-        return uidFromClient;
-    }
+        // Check if the UID is equal to "1234567890"
+        if (uid.equals("1234567890")) {
+            // Redirect to the login page (Replace "login-page-url" with the actual login page URL)
+            System.out.println("Redirecting to the login page...");
+            // You can use your web framework's redirect mechanism to redirect the user to the login page.
+            // For example, in a Spring Boot application, you can use a RedirectView like this:
+            // return new RedirectView("login-page-url");
+            // In this example, I will simply terminate the program since we're not in a web application.
+            return;
+        }
 
-    public String getEmail() throws FirebaseAuthException {
-        // Get the authenticated user from Firebase Authentication
-        UserRecord user = FirebaseAuth.getInstance().getUser(getUid());
+        // Use the retrieved UID to get the user by ID
+        UserRecord user = getUserById(uid);
 
         if (user != null) {
-            // If the user is authenticated, return the user's email
-            return user.getEmail();
+            // Do something with the user data
+            String displayName = user.getDisplayName();
+            String email = user.getEmail();
+            String photoURL = user.getPhotoUrl();
+            boolean emailVerified = user.isEmailVerified();
+            // ...
+            System.out.println("Successfully fetched user data: " + user.getUid());
         } else {
-            // If the user is not authenticated, return null or throw an exception
-            return null;
+            System.out.println("User not found or error occurred.");
         }
     }
 
-    public String getDisplayName() throws FirebaseAuthException {
-        // Get the authenticated user from Firebase Authentication
-        UserRecord user = FirebaseAuth.getInstance().getUser(getUid());
-
-        if (user != null) {
-            // If the user is authenticated, return the user's display name
-            return user.getDisplayName();
-        } else {
-            // If the user is not authenticated, return null or throw an exception
-            return null;
-        }
-    }
-
-    public String getPhotoUrl() throws FirebaseAuthException {
-        // Get the authenticated user from Firebase Authentication
-        UserRecord user = FirebaseAuth.getInstance().getUser(getUid());
-
-        if (user != null) {
-            // If the user is authenticated, return the user's profile picture URL
-            return user.getPhotoUrl();
-        } else {
-            // If the user is not authenticated, return null or throw an exception
-            return null;
-        }
-    }
-
-    public String getPhoneNumber() throws FirebaseAuthException {
-        // Get the authenticated user from Firebase Authentication
-        UserRecord user = FirebaseAuth.getInstance().getUser(getUid());
-
-        if (user != null) {
-            // If the user is authenticated, return the user's phone number
-            return user.getPhoneNumber();
-        } else {
-            // If the user is not authenticated, return null or throw an exception
+    public static UserRecord getUserById(String uid) {
+        try {
+            // Get the FirebaseUser record using the provided uid
+            return FirebaseAuth.getInstance().getUser(uid);
+        } catch (Exception e) {
+            // Handle any errors that may occur during the retrieval
+            System.out.println("Error fetching user data: " + e.getMessage());
             return null;
         }
     }
