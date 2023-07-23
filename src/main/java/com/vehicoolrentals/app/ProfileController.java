@@ -7,20 +7,15 @@ import com.vehicoolrentals.app.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 public class ProfileController {
 
     @GetMapping("/profile")
-    public String profilePage(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String uid = (String) session.getAttribute("uid"); // Get the UID from the session
-
+    public String profilePage(Model model, @SessionAttribute(name = "uid", required = false) String uid) {
         if (uid == null) {
-            // User is not authenticated, redirect to the login page
+            // Redirect to the login page if the UID is not found in the session
             return "redirect:/login";
         }
 
@@ -41,13 +36,11 @@ public class ProfileController {
             return "profile";
         } catch (FirebaseAuthException e) {
             // Handle FirebaseAuthException if necessary
-            // You can add an error message to the model and return an error template
             model.addAttribute("errorMessage", "Error fetching user data from Firebase");
             return "error";
         }
     }
 
-    // Replace this method with your actual logic to fetch data from Firebase
     private User fetchUserDataFromFirebase(String uid) throws FirebaseAuthException {
         UserRecord user = FirebaseAuth.getInstance().getUser(uid);
 
