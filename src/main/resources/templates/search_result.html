@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Search Results</title>
-  <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/themes/yeti.min.css}" />
   <style>
     /* CSS for the highlight effect on mouse hover */
     tr:hover {
@@ -16,10 +16,10 @@
 <!-- Include the layout template - header section -->
 <div th:replace="layout :: header"></div>
 
-<div class="container mt-5">
+<div class="container min-vh-100 mt-5">
   <h1 class="text-center">Search Results</h1>
   <div class="d-flex justify-content-center">
-    <table class="table table-striped mt-3">
+    <table class="table table-bordered table-striped table-hover mt-3">
       <thead>
       <tr>
         <th>Manufacturer Common Name</th>

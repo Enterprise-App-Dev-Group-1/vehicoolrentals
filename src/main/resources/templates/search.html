@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <title>Search</title>
     <!-- Bootswatch Theme CSS -->
-    <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/themes/yeti.min.css}" />
 </head>
 <body>
 <!-- Include the layout template - header section -->
 <div th:replace="layout :: header"></div>
 
-<div class="container text-center pt-5">
-    <h1>Search Page</h1>
+<div class="container min-vh-100 text-center pt-5">
+    <h1>Search Vehi-Cool rentals</h1>
     <p th:text="${message}"></p>
-</div>
+
 
 <form action="#" th:action="@{/search}" th:method="get">
     <div class="container">
-        <h1>Search Vehi-Cool rentals</h1>
         <p>Great deals on car rentals</p>
         <hr>
         <div class="input-group mb-3">
@@ -40,6 +39,7 @@
     </div>
 </form>
 
+</div>
 <!-- Include the layout template - footer section -->
 <div th:replace="layout :: footer"></div>
 </body>
