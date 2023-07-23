@@ -8,12 +8,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class ProfileController {
 
     @GetMapping("/profile")
-    public String profilePage(Model model) {
-        String uid = "1234567890"; // Replace this with the actual UID you want to check
+    public String profilePage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String uid = (String) session.getAttribute("uid"); // Get the UID from the session
+
+        if (uid == null) {
+            // User is not authenticated, redirect to the login page
+            return "redirect:/login";
+        }
 
         try {
             User userData;
