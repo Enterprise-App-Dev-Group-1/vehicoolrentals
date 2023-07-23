@@ -688,6 +688,4 @@ FodyWeavers.xsd
 .runtimeconfig.json
 .firebase/
 firebase-debug.log
-resources/firebase-adminsdk.json
 ```
-src/main/resources/firebase-adminsdk.json
