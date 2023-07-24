@@ -185,8 +185,9 @@ public class CarController {
 
             // Adjust price based on the year (assuming a linear depreciation model)
             int currentYear = java.time.Year.now().getValue();
-            com.vehicoolrentals.app.domain.Car carData = new com.vehicoolrentals.app.domain.Car(carApiClient, 0, make, model, 0);
+            com.vehicoolrentals.app.domain.Car carData = new com.vehicoolrentals.app.domain.Car(make, model, 0);
             int age = currentYear - carData.getYear();
+            basePrice = (float) (basePrice/0.02);
             if (age > 0) {
                 // Apply a depreciation factor of 5% per year for older cars
                 float depreciationFactor = 1.0f - (0.05f * age);

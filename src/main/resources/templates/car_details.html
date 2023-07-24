@@ -20,7 +20,7 @@
       <p>Price: <span th:text="${carDetails.getPrice()}">[Price]</span></p>
       <!-- Rent button placeholder with logic comments (centered) -->
       <div class="text-center">
-        <form th:action="@{/rentals/${id}}" method="post">
+        <form th:action="@{/rentals}">
           <!-- Add any required form fields -->
           <button type="submit" class="btn btn-primary">Rent Car</button>
         </form>

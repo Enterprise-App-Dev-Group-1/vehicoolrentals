@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/themes/vapor.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/themes/yeti.min.css}" />
     <title>Profile</title>
 
     <style>
@@ -97,13 +97,6 @@
 
     // Get the user ID (UID) from the server-side (replace "getUidFromServer()" with the actual function call to the server-side to retrieve the UID)
     var uid = getUidFromServer();
-
-    // Check if the UID is equal to "1234567890"
-    if (uid === "1234567890") {
-        // Redirect to the login page (Replace "login-page-url" with the actual login page URL)
-        console.log("Redirecting to the login page...");
-        window.location.href = "login";
-    }
 </script>
 <!-- Include the layout template - footer section -->
 <div th:replace="layout :: footer"></div>

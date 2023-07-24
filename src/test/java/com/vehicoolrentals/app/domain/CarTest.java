@@ -1,9 +1,6 @@
 package com.vehicoolrentals.app.domain;
 
-import com.vehicoolrentals.app.business.CarService;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +12,7 @@ class CarTest {
      */
     @Test
     void getCarPrice() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setCarPrice(1000);
         assertTrue(car.getCarPrice() == 1000);
     }
@@ -25,7 +22,7 @@ class CarTest {
      */
     @Test
     void getCarPrice2() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setCarPrice(2000);
         assertTrue(car.getCarPrice() == 2000);
     }
@@ -35,7 +32,7 @@ class CarTest {
      */
     @Test
     void getCarPrice3() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setCarPrice(3000);
         assertFalse(car.getCarPrice() == 4000);
     }
@@ -45,7 +42,7 @@ class CarTest {
      */
     @Test
     void getCarLocation() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setCarLocation("Cincinnati");
         assertTrue(car.getCarLocation() == "Cincinnati");
     }
@@ -55,7 +52,7 @@ class CarTest {
      */
     @Test
     void getCarLocation2() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setCarLocation("Dayton");
         assertTrue(car.getCarLocation() == "Dayton");
     }
@@ -65,7 +62,7 @@ class CarTest {
      */
     @Test
     void getCarLocation3() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setCarLocation("Chicago");
         assertFalse(car.getCarLocation() == "Texas");
     }
@@ -75,7 +72,7 @@ class CarTest {
      */
     @Test
     void getYear() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setYear(2020);
         assertTrue(car.getYear() == 2020);
     }
@@ -85,7 +82,7 @@ class CarTest {
      */
     @Test
     void getYear2() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setYear(2000);
         assertTrue(car.getYear() == 2000);
     }
@@ -95,7 +92,7 @@ class CarTest {
      */
     @Test
     void getYear3() {
-        Car car = new Car(1,"","",1);
+        Car car = new Car("","",1);
         car.setYear(2010);
         assertFalse(car.getYear() == 2020);
     }

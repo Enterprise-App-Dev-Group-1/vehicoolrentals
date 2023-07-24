@@ -14,31 +14,22 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public String profilePage(Model model, @SessionAttribute(name = "uid", required = false) String uid) {
-        if (uid == null) {
-            // Redirect to the login page if the UID is not found in the session
-            return "redirect:/login";
+
+        User userData;
+        if ("1234567890".equals(uid)) {
+            // If UID is the specific value, show default data
+            userData = getDefaultProfileData();
+        } else {
+            // Otherwise, fetch data from Firebase
+            //userData = fetchUserDataFromFirebase(uid);
+            userData = getDefaultProfileData();
         }
 
-        try {
-            User userData;
-            if ("1234567890".equals(uid)) {
-                // If UID is the specific value, show default data
-                userData = getDefaultProfileData();
-            } else {
-                // Otherwise, fetch data from Firebase
-                userData = fetchUserDataFromFirebase(uid);
-            }
+        // Add the user data to the model to be used in the Thymeleaf template
+        model.addAttribute("userData", userData);
 
-            // Add the user data to the model to be used in the Thymeleaf template
-            model.addAttribute("userData", userData);
-
-            // Return the name of the Thymeleaf template (profile.html)
-            return "profile";
-        } catch (FirebaseAuthException e) {
-            // Handle FirebaseAuthException if necessary
-            model.addAttribute("errorMessage", "Error fetching user data from Firebase");
-            return "error";
-        }
+        // Return the name of the Thymeleaf template (profile.html)
+        return "profile";
     }
 
     private User fetchUserDataFromFirebase(String uid) throws FirebaseAuthException {

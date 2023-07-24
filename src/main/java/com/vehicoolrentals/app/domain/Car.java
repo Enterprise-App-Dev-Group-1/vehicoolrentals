@@ -1,16 +1,10 @@
 package com.vehicoolrentals.app.domain;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import com.vehicoolrentals.app.CarApiClient;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Date;
 
 public class Car implements ICar {
@@ -27,11 +21,7 @@ public class Car implements ICar {
     private Date availabilityEnd;
     private float price;
 
-    public Car(CarApiClient carApiClient, int carId, String dummyMake, String dummyModel, int i) {
-        this.carApiClient = carApiClient;
-    }
-
-    public Car(int carId, String dummyMake, String dummyModel, int i) {
+    public Car(String dummyMake, String dummyModel, int i) {
         this.carApiClient = null;
     }
 

@@ -202,9 +202,9 @@ public class CarServiceTest {
 
 		public TestCarRepository() {
 			// For testing purposes, let's assume car with ID 1 is always available
-			cars.put(1, new Car(1, "Test Make", "Test Model", 100));
+			cars.put(1, new Car("Test Make", "Test Model", 100));
 			// Add more test cars as needed for the test
-			cars.put(2, new Car(2, "Another Make", "Another Model", 120));
+			cars.put(2, new Car("Another Make", "Another Model", 120));
 		}
 
 		@Override

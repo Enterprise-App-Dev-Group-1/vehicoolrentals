@@ -35,7 +35,7 @@ public class SearchServiceImpl implements ISearch {
 
                 NodeList results = doc.getElementsByTagName("DecodedVariable");
                 int carId = 0;
-                Car car = new Car(carId, "Dummy Make", "Dummy Model", 0);
+                Car car = new Car("Dummy Make", "Dummy Model", 0);
 
                 for (int i = 0; i < results.getLength(); i++) {
                     Node result = results.item(i);

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/themes/yeti.min.css}" />
     <title>My Rentals</title>
 </head>
 
@@ -12,7 +13,6 @@
         width: 90%;
         margin-left: 5%;
         margin-right: 5%;
-
     }
 
     td, th {
@@ -27,8 +27,8 @@
     }
 </style>
 
-
 <body>
+<div th:replace="layout :: header"></div>
 <div class="container text-center pt-5">
     <h1>Rentals Page</h1>
     <p th:text="${message}"></p>
@@ -42,19 +42,18 @@
         <th>Price</th>
     </tr>
     <tr>
-        <td>Picture</td>
+        <td><img src="/images/stockcar3.jpg" alt="Car Image" width="300" height="200" /></td>
         <td>Jeep Wrangler</td>
         <td>2020</td>
-        <td>$$</td>
+        <td>$40/day</td>
     </tr>
     <tr>
-        <td>Picture</td>
+        <td><img src="/images/stockcar1.jpg" alt="Car Image" width="300" height="200" /></td>
         <td>Honda Civic</td>
         <td>2023</td>
-        <td>$$</td>
+        <td>$50/day</td>
     </tr>
-
 </table>
-
+<div th:replace="layout :: footer"></div>
 </body>
 </html>
